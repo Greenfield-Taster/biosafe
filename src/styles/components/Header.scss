@@ -1,24 +1,262 @@
-// Header Component Styles
+@use "../variables" as v;
+
 .header {
-  // Основні стилі для хедера
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: v.$header-bg;
+  box-shadow: v.$header-shadow;
+  transition: v.$transition-normal;
+
   &__container {
-    // Контейнер хедера
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: v.$header-height;
+    padding: 0 v.$spacing-4;
+
+    @media (min-width: v.$breakpoint-md) {
+      padding: 0 v.$spacing-6;
+    }
+
+    @media (min-width: v.$breakpoint-lg) {
+      padding: 0 v.$spacing-8;
+    }
   }
-  
+
   &__logo {
-    // Логотип
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+
+    &-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: v.$text-primary;
+      transition: v.$transition-normal;
+    }
+
+    &-image {
+      width: 190px;
+    }
   }
-  
+
   &__nav {
-    // Навігація
+    display: none;
+
+    @media (min-width: v.$breakpoint-lg) {
+      display: block;
+    }
+
+    &-list {
+      display: flex;
+      align-items: center;
+      gap: v.$spacing-8;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    &-item {
+      position: relative;
+    }
+
+    &-link {
+      display: flex;
+      align-items: center;
+      padding: v.$spacing-2 v.$spacing-3;
+      font-family: v.$font-family-primary;
+      font-size: v.$font-size-base;
+      font-weight: v.$font-weight-medium;
+      color: v.$text-primary;
+      text-decoration: none;
+      border-radius: v.$border-radius-md;
+      transition: v.$transition-normal;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background-color: v.$accent-color;
+        transition: v.$transition-normal;
+        transform: translateX(-50%);
+      }
+
+      &:hover {
+        color: v.$primary-dark;
+        background-color: v.$bg-light;
+
+        &::before {
+          width: 100%;
+        }
+      }
+
+      &.active {
+        color: v.$primary-color;
+        background-color: v.$bg-light;
+      }
+    }
   }
-  
-  &__nav-list {
-    // Список навігації
+
+  &__mobile-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: v.$transition-normal;
+
+    @media (min-width: v.$breakpoint-lg) {
+      display: none;
+    }
+
+    &-line {
+      width: 100%;
+      height: 2px;
+      background-color: v.$primary-color;
+      transition: v.$transition-normal;
+      transform-origin: center;
+
+      &:nth-child(1) {
+        transform: translateY(0);
+      }
+
+      &:nth-child(2) {
+        opacity: 1;
+      }
+
+      &:nth-child(3) {
+        transform: translateY(0);
+      }
+    }
+
+    &:hover &-line {
+      background-color: v.$primary-dark;
+    }
+
+    &--open {
+      .header__mobile-toggle-line {
+        &:nth-child(1) {
+          transform: translateY(9px) rotate(45deg);
+        }
+
+        &:nth-child(2) {
+          opacity: 0;
+        }
+
+        &:nth-child(3) {
+          transform: translateY(-9px) rotate(-45deg);
+        }
+      }
+    }
   }
-  
-  &__nav-link {
-    // Посилання навігації
+
+  &__mobile-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: v.$white;
+    box-shadow: v.$shadow-lg;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: v.$transition-normal;
+
+    @media (min-width: v.$breakpoint-lg) {
+      display: none;
+    }
+
+    &--open {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &-list {
+      list-style: none;
+      margin: 0;
+      padding: v.$spacing-4;
+    }
+
+    &-item {
+      border-bottom: 1px solid v.$medium-gray;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    &-link {
+      display: block;
+      padding: v.$spacing-4 v.$spacing-2;
+      font-family: v.$font-family-primary;
+      font-size: v.$font-size-lg;
+      font-weight: v.$font-weight-medium;
+      color: v.$text-primary;
+      text-decoration: none;
+      transition: v.$transition-normal;
+
+      &:hover {
+        color: v.$primary-color;
+        background-color: v.$bg-light;
+        padding-left: v.$spacing-4;
+      }
+
+      &.active {
+        color: v.$primary-color;
+        background-color: v.$bg-light;
+      }
+    }
+  }
+}
+
+// Add top padding to body to compensate for fixed header
+body {
+  padding-top: v.$header-height;
+}
+
+// Mobile adjustments
+@media (max-width: 480px) {
+  .header {
+    &__container {
+      padding: 0 v.$spacing-3;
+    }
+
+    &__logo-name {
+      font-size: v.$font-size-base;
+    }
+
+    &__logo-tagline {
+      font-size: 9px;
+    }
+  }
+}
+
+// Tablet adjustments
+@media (min-width: 641px) and (max-width: 1023px) {
+  .header {
+    &__nav {
+      display: none;
+    }
+
+    &__mobile-toggle {
+      display: flex;
+    }
+
+    &__mobile-nav {
+      display: block;
+    }
   }
 }

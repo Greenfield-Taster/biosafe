@@ -1,4 +1,4 @@
-@import "./variables.scss";
+@use "./variables" as v;
 
 * {
   margin: 0;
@@ -8,21 +8,34 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 16px;
 }
 
 body {
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-base);
-  line-height: 1.6;
-  color: var(--gray-800);
-  background-color: var(--white);
+  font-family: v.$font-family-primary;
+  font-size: v.$font-size-base;
+  font-weight: v.$font-weight-normal;
+  line-height: v.$line-height-normal;
+  color: v.$text-primary;
+  background-color: v.$bg-primary;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: v.$bg-gradient;
+}
+
+.main-content {
+  flex: 1;
+  padding: v.$spacing-4 0;
+
+  @media (min-width: 768px) {
+    padding: v.$spacing-8 0;
+  }
 }
 
 ul,
@@ -33,72 +46,32 @@ ol {
 img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 button {
-  border: none;
-  background: none;
   cursor: pointer;
-  font-family: inherit;
 }
 
-// Container utility
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: v.$font-family-display;
+  font-weight: v.$font-weight-semibold;
+  line-height: v.$line-height-tight;
+  color: v.$text-primary;
+  margin-bottom: v.$spacing-4;
+}
+
 .container {
-  max-width: var(--container-max-width);
+  max-width: v.$container-max-width;
   margin: 0 auto;
-  padding: 0 var(--container-padding);
-}
+  padding: 0 v.$container-padding;
 
-// Text utilities
-.text-center {
-  text-align: center;
-}
-.text-left {
-  text-align: left;
-}
-.text-right {
-  text-align: right;
-}
-
-// Display utilities
-.d-none {
-  display: none;
-}
-.d-block {
-  display: block;
-}
-.d-flex {
-  display: flex;
-}
-.d-grid {
-  display: grid;
-}
-
-// Flexbox utilities
-.justify-center {
-  justify-content: center;
-}
-.justify-between {
-  justify-content: space-between;
-}
-.align-center {
-  align-items: center;
-}
-.flex-column {
-  flex-direction: column;
-}
-.flex-wrap {
-  flex-wrap: wrap;
-}
-
-// App layout
-.app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.main-content {
-  flex: 1;
-  padding: var(--spacing-4) 0;
+  @media (max-width: 768px) {
+    padding: 0 v.$spacing-3;
+  }
 }
