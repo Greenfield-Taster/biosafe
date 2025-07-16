@@ -1,12 +1,311 @@
-// Footer Component Styles
+@import "../variables.scss";
+
 .footer {
-  // Основні стилі для футера
-  
+  background: $white;
+  border-top: 1px solid #e5e7eb;
+  padding: $spacing-16 0 $spacing-8;
+  color: $text-secondary;
+
   &__container {
-    // Контейнер футера
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 $spacing-8;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: $spacing-20;
+    align-items: start;
   }
-  
-  &__text {
-    // Текст футера
+
+  &__about {
+    max-width: 450px;
+
+    .footer__logo {
+      display: flex;
+      align-items: center;
+      gap: $spacing-3;
+      margin-bottom: $spacing-6;
+
+      img {
+        width: 190px;
+      }
+
+      span {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-semibold;
+        color: $primary-color;
+        font-family: $font-family-display;
+      }
+    }
+
+    p {
+      font-size: $font-size-base;
+      line-height: $line-height-relaxed;
+      color: $text-secondary;
+      margin-bottom: $spacing-10;
+    }
+  }
+
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: $spacing-2;
+      font-size: $font-size-base;
+      color: $text-secondary;
+
+      span:first-child {
+        font-size: 16px;
+        color: $primary-color;
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    gap: $spacing-20;
+  }
+
+  &__column {
+    h4 {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $text-primary;
+      margin-bottom: $spacing-8;
+      font-family: $font-family-display;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-4;
+
+      li {
+        a {
+          font-size: $font-size-base;
+          color: $text-secondary;
+          text-decoration: none;
+          transition: color $transition-normal;
+
+          &:hover {
+            color: $primary-color;
+          }
+        }
+      }
+    }
+  }
+
+  &__bottom {
+    margin-top: $spacing-16;
+    padding-top: $spacing-8;
+    border-top: 1px solid #e5e7eb;
+
+    &-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 $spacing-8;
+      text-align: center;
+    }
+  }
+
+  &__licenses {
+    margin-bottom: $spacing-3;
+
+    p {
+      font-size: $font-size-xs;
+      color: $text-muted;
+      margin: $spacing-1 0;
+    }
+  }
+
+  &__copyright {
+    p {
+      font-size: $font-size-xs;
+      color: $text-muted;
+      margin: 0;
+    }
+  }
+}
+
+// Планшети
+@media (max-width: $breakpoint-lg) {
+  .footer {
+    padding: $spacing-12 0 $spacing-6;
+
+    &__container {
+      grid-template-columns: 1fr;
+      gap: $spacing-12;
+      padding: 0 $container-padding;
+    }
+
+    &__about {
+      max-width: none;
+      text-align: center;
+    }
+
+    &__links {
+      justify-content: center;
+      gap: $spacing-16;
+    }
+
+    &__bottom {
+      margin-top: $spacing-12;
+      padding-top: $spacing-6;
+
+      &-content {
+        padding: 0 $container-padding;
+      }
+    }
+  }
+}
+
+// Мобільні пристрої
+@media (max-width: $breakpoint-md) {
+  .footer {
+    padding: $spacing-8 0 $spacing-4;
+
+    &__container {
+      gap: $spacing-8;
+      padding: 0 $spacing-3;
+    }
+
+    &__about {
+      .footer__logo {
+        justify-content: center;
+        margin-bottom: $spacing-5;
+
+        img {
+          width: 28px;
+          height: 28px;
+        }
+
+        span {
+          font-size: $font-size-lg;
+        }
+      }
+
+      p {
+        font-size: $font-size-sm;
+        margin-bottom: $spacing-6;
+      }
+    }
+
+    &__contact {
+      align-items: center;
+      gap: $spacing-3;
+
+      &-item {
+        font-size: $font-size-sm;
+      }
+    }
+
+    &__links {
+      flex-direction: column;
+      gap: $spacing-8;
+      text-align: center;
+    }
+
+    &__column {
+      h4 {
+        font-size: $font-size-base;
+        margin-bottom: $spacing-4;
+      }
+
+      ul {
+        gap: $spacing-2;
+
+        li a {
+          font-size: $font-size-sm;
+        }
+      }
+    }
+
+    &__bottom {
+      margin-top: $spacing-8;
+      padding-top: $spacing-4;
+
+      &-content {
+        padding: 0 $spacing-3;
+      }
+    }
+  }
+}
+
+// Малі мобільні пристрої
+@media (max-width: $breakpoint-sm) {
+  .footer {
+    padding: $spacing-6 0 $spacing-3;
+
+    &__container {
+      gap: $spacing-6;
+      padding: 0 $spacing-2;
+    }
+
+    &__about {
+      .footer__logo {
+        margin-bottom: $spacing-4;
+
+        img {
+          width: 24px;
+          height: 24px;
+        }
+
+        span {
+          font-size: $font-size-base;
+        }
+      }
+
+      p {
+        font-size: $font-size-xs;
+        margin-bottom: $spacing-5;
+      }
+    }
+
+    &__contact {
+      gap: $spacing-2;
+
+      &-item {
+        font-size: $font-size-xs;
+      }
+    }
+
+    &__links {
+      gap: $spacing-6;
+    }
+
+    &__column {
+      h4 {
+        font-size: $font-size-sm;
+        margin-bottom: $spacing-3;
+      }
+
+      ul {
+        gap: $spacing-1;
+
+        li a {
+          font-size: $font-size-xs;
+        }
+      }
+    }
+
+    &__bottom {
+      margin-top: $spacing-6;
+      padding-top: $spacing-3;
+
+      &-content {
+        padding: 0 $spacing-2;
+      }
+    }
+
+    &__licenses p,
+    &__copyright p {
+      font-size: 10px;
+    }
   }
 }

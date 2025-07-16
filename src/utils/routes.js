@@ -12,6 +12,7 @@ export const NAVIGATION_ITEMS = [
   { path: ROUTES.HOME, name: "Головна" },
   { path: ROUTES.CONSULTING, name: "Консультації" },
   { path: ROUTES.CONSULTANTS, name: "Консультанти" },
+  { path: ROUTES.REQUEST_CONSULTATION, name: "Замовити консультацію" },
   { path: ROUTES.DIAGNOSTICS, name: "Діагностика" },
   { path: ROUTES.HELP, name: "Допомога" },
   { path: ROUTES.CONTACT, name: "Контакти" },
