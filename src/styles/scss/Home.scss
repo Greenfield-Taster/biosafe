@@ -1,0 +1,15 @@
+.home {
+  padding: var(--spacing-8);
+  
+  h1 {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-6);
+    color: var(--primary-color);
+  }
+  
+  p {
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--gray-600);
+  }
+}

@@ -1,0 +1,85 @@
+// Mobile First Responsive Mixins and Utilities
+@import '../variables.scss';
+
+// Breakpoints mixins
+@mixin mobile {
+  @media (max-width: #{var(--breakpoint-sm) - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{var(--breakpoint-sm)}) and (max-width: #{var(--breakpoint-lg) - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{var(--breakpoint-lg)}) {
+    @content;
+  }
+}
+
+@mixin mobile-up {
+  @media (min-width: #{var(--breakpoint-sm)}) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (min-width: #{var(--breakpoint-md)}) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media (min-width: #{var(--breakpoint-lg)}) {
+    @content;
+  }
+}
+
+@mixin xl-up {
+  @media (min-width: #{var(--breakpoint-xl)}) {
+    @content;
+  }
+}
+
+// Responsive utilities
+.mobile-only {
+  @include tablet-up {
+    display: none !important;
+  }
+}
+
+.tablet-only {
+  @include mobile {
+    display: none !important;
+  }
+  @include desktop-up {
+    display: none !important;
+  }
+}
+
+.desktop-only {
+  @include tablet {
+    display: none !important;
+  }
+  @include mobile {
+    display: none !important;
+  }
+}
+
+// Container responsive
+.container {
+  @include mobile {
+    padding: 0 var(--spacing-3);
+  }
+  
+  @include tablet-up {
+    padding: 0 var(--spacing-6);
+  }
+  
+  @include desktop-up {
+    padding: 0 var(--spacing-8);
+  }
+}

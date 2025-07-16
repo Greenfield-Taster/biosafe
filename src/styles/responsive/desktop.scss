@@ -1,0 +1,47 @@
+// Desktop specific styles
+@import '../variables.scss';
+
+// Desktop Header
+.header {
+  @media (min-width: #{var(--breakpoint-lg)}) {
+    &__container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 var(--spacing-8);
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+    }
+    
+    &__nav-list {
+      display: flex;
+      gap: var(--spacing-8);
+    }
+  }
+}
+
+// Desktop Layout
+.layout {
+  @media (min-width: #{var(--breakpoint-lg)}) {
+    &__main {
+      padding: var(--spacing-8) 0;
+    }
+  }
+}
+
+// Desktop Pages
+.home,
+.about,
+.services,
+.contact {
+  @media (min-width: #{var(--breakpoint-lg)}) {
+    padding: var(--spacing-8) var(--spacing-12);
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    
+    h1 {
+      font-size: var(--font-size-4xl);
+      margin-bottom: var(--spacing-8);
+    }
+  }
+}
