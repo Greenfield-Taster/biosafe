@@ -23,19 +23,43 @@
     }
   }
 
-  // Налаштування для мобільних пристроїв
   @media (max-width: 768px) {
     .circle {
       opacity: 0.5;
       filter: blur(20px);
-      
-      &.circle-1, &.circle-2, &.circle-3 {
+
+      &.circle-1,
+      &.circle-2,
+      &.circle-3 {
         display: block;
       }
-      
-      &.circle-4, &.circle-5 {
-        display: none; // Приховуємо деякі кола на мобільних
+
+      &.circle-4,
+      &.circle-5 {
+        display: none;
       }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .circle {
+      opacity: 0.5;
+      filter: blur(20px);
+
+      // &.circle-1 {
+      //   width: 200px !important;
+      //   height: 200px !important;
+      // }
+
+      // &.circle-2 {
+      //   width: 180px !important;
+      //   height: 180px !important;
+      // }
+
+      // &.circle-3 {
+      //   width: 190px !important;
+      //   height: 190px !important;
+      // }
     }
   }
 
@@ -63,10 +87,11 @@
         rgba(43, 93, 107, 0.1) 100%
       );
       animation: fadeInCircle 1.2s ease-out, smoothFloat1 30s infinite linear;
-      
+
       @media (max-width: 768px) {
         width: 300px !important;
         height: 300px !important;
+        animation: fadeInCircle 1.2s ease-out, mobileFloat1 8s infinite linear;
       }
     }
 
@@ -79,10 +104,12 @@
       );
       animation: fadeInCircle 1.2s ease-out 0.4s both,
         smoothFloat2 25s infinite linear;
-      
+
       @media (max-width: 768px) {
         width: 250px !important;
         height: 250px !important;
+        animation: fadeInCircle 1.2s ease-out 0.4s both,
+          mobileFloat2 6s infinite linear;
       }
     }
 
@@ -95,10 +122,12 @@
       );
       animation: fadeInCircle 1.2s ease-out 1.5s both,
         smoothFloat3 28s infinite linear;
-      
+
       @media (max-width: 768px) {
         width: 280px !important;
         height: 280px !important;
+        animation: fadeInCircle 1.2s ease-out 1.5s both,
+          mobileFloat3 9s infinite linear;
       }
     }
 
@@ -127,7 +156,118 @@
   }
 }
 
-// Расширенная траектория для голубого круга (circle-1)
+// Мобильная анимация 1: Левая сторона, высокая амплитуда
+@keyframes mobileFloat1 {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.4;
+  }
+  12% {
+    transform: translate(-140px, -120px) rotate(30deg) scale(1.15);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translate(-220px, -80px) rotate(75deg) scale(0.9);
+    opacity: 0.3;
+  }
+  38% {
+    transform: translate(-180px, 60px) rotate(120deg) scale(1.1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-90px, 140px) rotate(180deg) scale(0.8);
+    opacity: 0.2;
+  }
+  62% {
+    transform: translate(-160px, 100px) rotate(240deg) scale(1.05);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translate(-120px, -40px) rotate(300deg) scale(1.2);
+    opacity: 0.6;
+  }
+  88% {
+    transform: translate(-60px, -80px) rotate(330deg) scale(1.1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg) scale(1);
+    opacity: 0.4;
+  }
+}
+
+// Мобильная анимация 2: Правая сторона, средняя амплитуда
+@keyframes mobileFloat2 {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.5;
+  }
+  15% {
+    transform: translate(120px, -100px) rotate(-45deg) scale(1.1);
+    opacity: 0.7;
+  }
+  30% {
+    transform: translate(180px, -60px) rotate(-90deg) scale(0.85);
+    opacity: 0.3;
+  }
+  45% {
+    transform: translate(150px, 40px) rotate(-135deg) scale(1.05);
+    opacity: 0.6;
+  }
+  60% {
+    transform: translate(80px, 100px) rotate(-180deg) scale(0.9);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translate(140px, 60px) rotate(-225deg) scale(1.15);
+    opacity: 0.5;
+  }
+  90% {
+    transform: translate(60px, -20px) rotate(-315deg) scale(1.05);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(0, 0) rotate(-360deg) scale(1);
+    opacity: 0.5;
+  }
+}
+
+// Мобильная анимация 3: Низ экрана, малая амплитуда
+@keyframes mobileFloat3 {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.4;
+  }
+  20% {
+    transform: translate(-80px, 110px) rotate(40deg) scale(0.9);
+    opacity: 0.6;
+  }
+  35% {
+    transform: translate(-30px, 160px) rotate(80deg) scale(1.1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(60px, 130px) rotate(120deg) scale(1.05);
+    opacity: 0.5;
+  }
+  65% {
+    transform: translate(100px, 80px) rotate(160deg) scale(0.85);
+    opacity: 0.4;
+  }
+  80% {
+    transform: translate(40px, 120px) rotate(200deg) scale(1.1);
+    opacity: 0.6;
+  }
+  95% {
+    transform: translate(-20px, 60px) rotate(240deg) scale(1.05);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(0, 0) rotate(280deg) scale(1);
+    opacity: 0.4;
+  }
+}
+
 @keyframes smoothFloat1 {
   0% {
     transform: translate(0, 0) rotate(0deg) scale(1);
