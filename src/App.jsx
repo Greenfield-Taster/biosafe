@@ -13,9 +13,6 @@ import Help from "./pages/Help";
 import Contact from "./pages/Contact";
 
 import "./styles/global.scss";
-import "./styles/responsive/mobile.scss";
-import "./styles/responsive/tablet.scss";
-import "./styles/responsive/desktop.scss";
 
 function App() {
   return (
@@ -26,7 +23,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/consulting" element={<Consulting />} />
           <Route path="/consultants" element={<Consultants />} />
-          <Route path="/request-consultation" element={<RequestConsultation />} />
+          <Route
+            path="/request-consultation"
+            element={<RequestConsultation />}
+          />
           <Route path="/diagnostics" element={<Diagnostics />} />
           <Route path="/help" element={<Help />} />
           <Route path="/contact" element={<Contact />} />

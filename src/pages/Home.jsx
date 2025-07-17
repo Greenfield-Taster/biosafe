@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AnimatedCircles from "../components/UI/AnimatedCircles";
-import logoDetelsys from "../../public/assets/logo-detelsys.png";
+import logoDetelsys from "/assets/logo-detelsys.png";
 import "../styles/scss/Home.scss";
 
 const Home = () => {
