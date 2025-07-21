@@ -1,15 +1,925 @@
+@use "../variables.scss" as v;
+
 .consulting {
-  padding: var(--spacing-8);
-  
-  h1 {
-    font-size: var(--font-size-3xl);
-    margin-bottom: var(--spacing-6);
-    color: var(--primary-color);
+  min-height: calc(100vh - v.$header-height);
+  background: v.$bg-gradient;
+
+  &__container {
+    max-width: v.$container-max-width;
+    margin: 0 auto;
+    padding: 0 v.$container-padding;
   }
-  
-  p {
-    font-size: var(--font-size-lg);
-    line-height: 1.6;
-    color: var(--gray-600);
+
+  // Hero Section
+  &__hero {
+    padding: v.$spacing-16 0 v.$spacing-12;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(
+        135deg, 
+        rgba(v.$primary-color, 0.03) 0%, 
+        rgba(v.$accent-color, 0.02) 100%
+      );
+      z-index: 0;
+    }
+
+    &-content {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  &__title {
+    font-family: v.$font-family-display;
+    font-size: clamp(v.$font-size-3xl, 5vw, v.$font-size-5xl);
+    font-weight: v.$font-weight-bold;
+    color: v.$primary-color;
+    margin-bottom: v.$spacing-6;
+    line-height: v.$line-height-tight;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__title-accent {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, v.$accent-color 0%, v.$accent-light 100%);
+    margin: 0 auto;
+    border-radius: v.$border-radius-full;
+  }
+
+  // Content Section
+  &__content {
+    padding-bottom: v.$spacing-20;
+    display: flex;
+    flex-direction: column;
+    gap: v.$spacing-16;
+  }
+
+  // Mission Section - Special slogan styling
+  &__mission-section {
+    margin: v.$spacing-20 0;
+    padding: v.$spacing-16 0;
+    position: relative;
+    
+    // Decorative lines above and below
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 3px;
+      background: linear-gradient(
+        90deg, 
+        transparent 0%, 
+        v.$accent-color 20%, 
+        v.$primary-color 50%, 
+        v.$accent-color 80%, 
+        transparent 100%
+      );
+      border-radius: v.$border-radius-full;
+    }
+    
+    &::before {
+      top: 0;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    
+    &::after {
+      bottom: 0;
+      animation: shimmer 3s ease-in-out infinite 1.5s;
+    }
+    
+    // Enhanced card styling for mission
+    .consulting__text-card--final {
+      background: linear-gradient(
+        135deg, 
+        rgba(v.$primary-color, 0.02) 0%, 
+        rgba(v.$accent-color, 0.02) 50%,
+        rgba(v.$primary-color, 0.02) 100%
+      );
+      border: none;
+      box-shadow: 
+        0 20px 40px rgba(v.$primary-color, 0.1),
+        0 0 0 1px rgba(v.$accent-color, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      transform: scale(1.05);
+      padding: v.$spacing-12;
+      
+      &:hover {
+        transform: scale(1.08) translateY(-12px);
+        box-shadow: 
+          0 30px 60px rgba(v.$primary-color, 0.15),
+          0 0 0 1px rgba(v.$accent-color, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      }
+      
+      h2 {
+        font-size: v.$font-size-3xl;
+        font-weight: v.$font-weight-bold;
+        background: linear-gradient(135deg, v.$primary-color 0%, v.$accent-color 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: v.$spacing-6;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        
+        &::after {
+          width: 60px;
+          height: 4px;
+          background: linear-gradient(90deg, v.$accent-color, v.$primary-color);
+          box-shadow: 0 2px 8px rgba(v.$accent-color, 0.3);
+        }
+      }
+      
+      p {
+        font-size: v.$font-size-xl;
+        font-weight: v.$font-weight-medium;
+        line-height: v.$line-height-relaxed;
+        color: v.$primary-color;
+        text-align: center;
+        font-style: italic;
+        position: relative;
+        
+        &::before,
+        &::after {
+          content: '"';
+          font-size: v.$font-size-3xl;
+          color: v.$accent-color;
+          font-weight: v.$font-weight-bold;
+          opacity: 0.6;
+        }
+        
+        &::before {
+          position: absolute;
+          left: -20px;
+          top: -10px;
+        }
+        
+        &::after {
+          position: absolute;
+          right: -20px;
+          bottom: -20px;
+          transform: rotate(180deg);
+        }
+      }
+      
+      .consulting__geometric-element--diamond,
+      .consulting__geometric-element--square {
+        background: linear-gradient(45deg, v.$accent-color, v.$primary-color);
+        box-shadow: 
+          0 8px 16px rgba(v.$primary-color, 0.2),
+          0 0 20px rgba(v.$accent-color, 0.3);
+      }
+    }
+  }
+
+  // Text Cards - Creative Layout
+  &__text-card {
+    position: relative;
+    background: v.$white;
+    border-radius: v.$border-radius-xl;
+    padding: v.$spacing-10;
+    box-shadow: v.$shadow-lg;
+    overflow: hidden;
+    transition: all v.$transition-normal;
+    
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: v.$shadow-xl;
+    }
+
+    // Different layouts for each card
+    &--primary {
+      display: grid;
+      grid-template-columns: 80px 1fr 60px;
+      gap: v.$spacing-6;
+      align-items: center;
+      border-left: 6px solid v.$primary-color;
+
+      .consulting__text-content {
+        text-align: left;
+      }
+    }
+
+    &--secondary {
+      display: grid;
+      grid-template-columns: 60px 1fr 80px;
+      gap: v.$spacing-6;
+      align-items: center;
+      border-right: 6px solid v.$accent-color;
+
+      .consulting__text-content {
+        text-align: right;
+        order: 1;
+      }
+      
+      .consulting__text-card-icon {
+        order: 3;
+      }
+      
+      .consulting__geometric-element {
+        order: 0;
+      }
+    }
+
+    &--tertiary {
+      display: grid;
+      grid-template-columns: 80px 1fr 60px;
+      gap: v.$spacing-6;
+      align-items: center;
+      border-left: 6px solid v.$medical-blue;
+
+      .consulting__text-content {
+        text-align: left;
+      }
+    }
+
+    &--final {
+      display: grid;
+      grid-template-columns: 60px 1fr 60px;
+      gap: v.$spacing-6;
+      align-items: center;
+      text-align: center;
+      border: 4px solid;
+      border-image: linear-gradient(45deg, v.$primary-color, v.$accent-color) 1;
+      background: linear-gradient(135deg, rgba(v.$primary-color, 0.02) 0%, rgba(v.$accent-color, 0.02) 100%);
+
+      .consulting__text-content {
+        &--centered {
+          text-align: center;
+        }
+      }
+    }
+
+    h2 {
+      font-family: v.$font-family-display;
+      font-size: v.$font-size-2xl;
+      font-weight: v.$font-weight-bold;
+      color: v.$primary-color;
+      margin-bottom: v.$spacing-4;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: v.$accent-color;
+        border-radius: v.$border-radius-full;
+      }
+
+      .consulting__text-card--secondary &::after,
+      .consulting__text-card--final &::after {
+        left: auto;
+        right: 0;
+      }
+
+      .consulting__text-card--final &::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    p {
+      font-family: v.$font-family-primary;
+      font-size: v.$font-size-lg;
+      line-height: v.$line-height-relaxed;
+      color: v.$text-primary;
+      margin: 0;
+
+      strong {
+        color: v.$primary-color;
+        font-weight: v.$font-weight-semibold;
+        position: relative;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 2px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, v.$accent-color, transparent);
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+  // Icons for text cards
+  &__text-card-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, v.$primary-color, v.$accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: v.$white;
+    box-shadow: v.$shadow-md;
+    transition: all v.$transition-normal;
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      background: linear-gradient(135deg, v.$accent-color, v.$primary-color);
+      border-radius: 50%;
+      opacity: 0;
+      transition: all v.$transition-normal;
+      z-index: -1;
+    }
+
+    svg {
+      width: 32px;
+      height: 32px;
+      stroke-width: 2.5;
+    }
+
+    .consulting__text-card:hover & {
+      transform: rotate(360deg) scale(1.1);
+      
+      &::before {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  // Geometric Elements
+  &__geometric-element {
+    position: relative;
+    transition: all v.$transition-slow;
+    
+    .consulting__text-card:hover & {
+      transform: rotate(180deg);
+    }
+
+    &--circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, v.$accent-color, v.$accent-light);
+      box-shadow: v.$shadow-md;
+    }
+
+    &--triangle {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 35px solid v.$primary-color;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    }
+
+    &--hexagon {
+      width: 40px;
+      height: 40px;
+      background: v.$medical-blue;
+      position: relative;
+      margin: 20px 0;
+      
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+      }
+      
+      &::before {
+        bottom: 100%;
+        border-bottom: 10px solid v.$medical-blue;
+      }
+      
+      &::after {
+        top: 100%;
+        border-top: 10px solid v.$medical-blue;
+      }
+    }
+
+    &--diamond {
+      width: 35px;
+      height: 35px;
+      background: linear-gradient(45deg, v.$primary-color, v.$accent-color);
+      transform: rotate(45deg);
+      box-shadow: v.$shadow-md;
+    }
+
+    &--square {
+      width: 35px;
+      height: 35px;
+      background: linear-gradient(135deg, v.$accent-color, v.$accent-light);
+      border-radius: v.$border-radius-sm;
+      box-shadow: v.$shadow-md;
+    }
+  }
+
+  // Services Grid
+  &__services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: v.$spacing-8;
+    margin-bottom: v.$spacing-20;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__service-card {
+    background: v.$white;
+    padding: v.$spacing-8;
+    border-radius: v.$border-radius-xl;
+    box-shadow: v.$shadow-md;
+    transition: all v.$transition-normal;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, v.$primary-color 0%, v.$accent-color 100%);
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: v.$shadow-xl;
+
+      .consulting__service-icon {
+        transform: scale(1.1);
+        color: v.$accent-color;
+      }
+    }
+
+    h3 {
+      font-family: v.$font-family-display;
+      font-size: v.$font-size-xl;
+      font-weight: v.$font-weight-semibold;
+      color: v.$primary-color;
+      margin: v.$spacing-6 0 v.$spacing-4;
+    }
+
+    p {
+      font-size: v.$font-size-base;
+      color: v.$text-secondary;
+      line-height: v.$line-height-relaxed;
+    }
+  }
+
+  &__service-icon {
+    width: 48px;
+    height: 48px;
+    color: v.$primary-color;
+    transition: all v.$transition-normal;
+    margin: 0 auto;
+  }
+
+  // CTA Section
+  &__cta {
+    background: v.$white;
+    border-radius: v.$border-radius-xl;
+    padding: v.$spacing-12;
+    box-shadow: v.$shadow-lg;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, v.$primary-color 0%, v.$accent-color 100%);
+    }
+
+    &-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    &-title {
+      font-family: v.$font-family-display;
+      font-size: v.$font-size-3xl;
+      font-weight: v.$font-weight-bold;
+      color: v.$primary-color;
+      margin-bottom: v.$spacing-4;
+    }
+
+    &-description {
+      font-size: v.$font-size-lg;
+      color: v.$text-secondary;
+      margin-bottom: v.$spacing-10;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  &__cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: v.$spacing-6;
+    align-items: center;
+    justify-content: center;
+
+    @media (min-width: v.$breakpoint-md) {
+      flex-direction: row;
+      gap: v.$spacing-8;
+    }
+  }
+
+  // Buttons
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: v.$spacing-3;
+    padding: v.$spacing-5 v.$spacing-8;
+    font-family: v.$font-family-primary;
+    font-size: v.$font-size-lg;
+    font-weight: v.$font-weight-semibold;
+    text-decoration: none;
+    border-radius: v.$border-radius-lg;
+    transition: all v.$transition-normal;
+    position: relative;
+    overflow: hidden;
+    min-width: 220px;
+    white-space: nowrap;
+
+    &-icon {
+      width: 20px;
+      height: 20px;
+      transition: all v.$transition-normal;
+    }
+
+    &--primary {
+      background: v.$primary-color;
+      color: v.$white;
+      box-shadow: v.$shadow-md;
+
+      &:hover {
+        background: v.$primary-dark;
+        transform: translateY(-2px);
+        box-shadow: v.$shadow-xl;
+
+        .consulting__btn-icon {
+          transform: translateX(2px);
+        }
+      }
+    }
+
+    &--secondary {
+      background: v.$accent-color;
+      color: v.$white;
+      box-shadow: v.$shadow-md;
+
+      &:hover {
+        background: v.$accent-dark;
+        transform: translateY(-2px);
+        box-shadow: v.$shadow-xl;
+
+        .consulting__btn-icon {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: v.$breakpoint-md) {
+    &__hero {
+      padding: v.$spacing-12 0 v.$spacing-8;
+    }
+
+    &__title {
+      font-size: v.$font-size-3xl;
+    }
+
+    &__content {
+      gap: v.$spacing-12;
+    }
+
+    // Mission section responsive
+    &__mission-section {
+      margin: v.$spacing-16 0;
+      padding: v.$spacing-12 0;
+      
+      &::before,
+      &::after {
+        width: 200px;
+        height: 2px;
+      }
+      
+      .consulting__text-card--final {
+        transform: scale(1) !important;
+        padding: v.$spacing-8;
+        
+        &:hover {
+          transform: scale(1.02) translateY(-8px) !important;
+        }
+        
+        h2 {
+          font-size: v.$font-size-2xl;
+        }
+        
+        p {
+          font-size: v.$font-size-lg;
+          
+          &::before,
+          &::after {
+            font-size: v.$font-size-2xl;
+          }
+          
+          &::before {
+            left: -15px;
+            top: -8px;
+          }
+          
+          &::after {
+            right: -15px;
+            bottom: -15px;
+          }
+        }
+      }
+    }
+
+    &__text-card {
+      padding: v.$spacing-6;
+      
+      &--primary,
+      &--secondary,
+      &--tertiary,
+      &--final {
+        display: flex;
+        flex-direction: column;
+        gap: v.$spacing-4;
+        text-align: center;
+        border: none;
+        border-top: 4px solid v.$primary-color;
+      }
+
+      &--secondary {
+        border-top-color: v.$accent-color;
+      }
+
+      &--tertiary {
+        border-top-color: v.$medical-blue;
+      }
+
+      &--final {
+        border: 4px solid;
+        border-image: linear-gradient(45deg, v.$primary-color, v.$accent-color) 1;
+      }
+
+      .consulting__text-content {
+        text-align: center !important;
+        order: 0 !important;
+      }
+
+      h2::after {
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%);
+      }
+    }
+
+    &__services {
+      grid-template-columns: 1fr;
+      gap: v.$spacing-6;
+      margin-bottom: v.$spacing-16;
+    }
+
+    &__service-card {
+      padding: v.$spacing-6;
+    }
+
+    &__cta {
+      padding: v.$spacing-8;
+    }
+
+    &__cta-title {
+      font-size: v.$font-size-2xl;
+    }
+
+    &__cta-description {
+      font-size: v.$font-size-base;
+    }
+
+    &__btn {
+      width: 100%;
+      max-width: 300px;
+      padding: v.$spacing-4 v.$spacing-6;
+      font-size: v.$font-size-base;
+    }
+  }
+
+  @media (max-width: v.$breakpoint-sm) {
+    &__container {
+      padding: 0 v.$spacing-4;
+    }
+
+    // Mission section for small screens
+    &__mission-section {
+      margin: v.$spacing-12 0;
+      padding: v.$spacing-8 0;
+      
+      &::before,
+      &::after {
+        width: 150px;
+        height: 2px;
+      }
+      
+      .consulting__text-card--final {
+        padding: v.$spacing-6;
+        
+        h2 {
+          font-size: v.$font-size-xl;
+        }
+        
+        p {
+          font-size: v.$font-size-base;
+          font-style: normal;
+          
+          &::before,
+          &::after {
+            display: none; // Hide quotes on small screens for cleaner look
+          }
+        }
+      }
+    }
+
+    &__text-card {
+      padding: v.$spacing-5;
+    }
+
+    &__service-card {
+      padding: v.$spacing-5;
+    }
+
+    &__cta {
+      padding: v.$spacing-6;
+    }
+  }
+}
+
+// Advanced Animations
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px) rotate(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Apply animations to text cards
+.consulting__text-card:nth-child(1) {
+  animation: slideInLeft 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.consulting__text-card:nth-child(2) {
+  animation: slideInRight 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+  opacity: 0;
+}
+
+.consulting__text-card:nth-child(3) {
+  animation: slideInLeft 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+  opacity: 0;
+}
+
+.consulting__text-card:nth-child(4) {
+  animation: scaleIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
+  opacity: 0;
+}
+
+.consulting__services {
+  animation: floatIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards;
+  opacity: 0;
+}
+
+.consulting__cta {
+  animation: floatIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards;
+  opacity: 0;
+}
+
+// Geometric animations
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.consulting__geometric-element {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.consulting__geometric-element--triangle {
+  animation: rotate 10s linear infinite;
+}
+
+// Shimmer animation for mission section decorative lines
+@keyframes shimmer {
+  0% {
+    opacity: 0.3;
+    transform: translateX(-50%) scaleX(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scaleX(1.2);
+  }
+  100% {
+    opacity: 0.3;
+    transform: translateX(-50%) scaleX(0.8);
+  }
+}
+
+// Special animation for mission section
+.consulting__mission-section {
+  .consulting__text-card--final {
+    animation: missionGlow 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards;
+    opacity: 0;
+  }
+}
+
+@keyframes missionGlow {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.05) translateY(0);
   }
 }
