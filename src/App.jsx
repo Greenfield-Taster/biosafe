@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -15,10 +15,13 @@ import Contact from "./pages/Contact";
 import "./styles/global.scss";
 
 function App() {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   return (
     <div className="app">
-      <Header />
-      <main className="main-content">
+      <Header isHomePage={isHomePage} />
+      <main className={`main-content ${isHomePage ? 'home-page' : ''}`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/consulting" element={<Consulting />} />

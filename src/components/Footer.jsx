@@ -1,9 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/Logo-Biosafe.png";
 import "../styles/components/Footer.scss";
 
 const Footer = () => {
+  const [showFooter, setShowFooter] = useState(true);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
+  useEffect(() => {
+    if (isHomePage) {
+      setShowFooter(false);
+      const timer = setTimeout(() => {
+        setShowFooter(true);
+      }, 6000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowFooter(true);
+    }
+  }, [isHomePage]);
+  if (!showFooter) {
+    return null;
+  }
+
   return (
     <footer className="footer">
       <div className="footer__container">

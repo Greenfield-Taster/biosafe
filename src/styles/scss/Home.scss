@@ -2,257 +2,519 @@
 
 .home {
   position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #f0f4f7 0%, #e1e8ed 100%);
-  overflow: hidden;
-  padding-top: 0;
+  width: 100vw;
+  background-color: v.$bg-primary;
+  margin: 0;
+  padding: 0;
 
-  // Fallback для старых браузеров
-  background-color: #f0f4f7;
-
-  .container {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    width: 100%;
-    max-width: 1400px;
-    padding: v.$spacing-8;
-
-    @media (max-width: 768px) {
-      padding: v.$spacing-4;
-    }
-
-    @media (max-width: 480px) {
-      padding: v.$spacing-3;
-    }
+  // Полноэкранная анимация
+  .fullscreen-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1000;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
   }
 
-  .hero-content {
-    margin-bottom: v.$spacing-20;
-    animation: fadeInUp 1s ease-out;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: v.$spacing-20;
+  // Заголовок BIOSAFE
+  .biosafe-title {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    opacity: 1;
+    transition: opacity 0.8s ease-out; // Быстрее переход
+    pointer-events: none;
 
-    .hero-title {
-      font-size: v.$font-size-5xl;
+    &.fade-out {
+      opacity: 0;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 8rem);
       font-weight: v.$font-weight-bold;
-      color: v.$primary-color;
-      margin-bottom: v.$spacing-12;
-      line-height: v.$line-height-tight;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-      @media (max-width: 768px) {
-        font-size: v.$font-size-4xl;
-      }
-
-      @media (max-width: 480px) {
-        font-size: v.$font-size-3xl;
-      }
-    }
-
-    .service-buttons {
-      display: flex;
-      gap: v.$spacing-8;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: v.$spacing-16;
-
-      @media (max-width: 480px) {
-        flex-direction: column;
-        gap: v.$spacing-6;
-        align-items: center;
-      }
-    }
-
-    .service-button {
-      display: inline-block;
-      background: v.$primary-color;
-      color: v.$white;
-      padding: v.$spacing-5 v.$spacing-10;
-      border: none;
-      border-radius: v.$border-radius-full;
-      font-size: v.$font-size-xl;
-      font-weight: v.$font-weight-semibold;
-      font-family: v.$font-family-primary;
-      cursor: pointer;
-      transition: all v.$transition-normal;
-      box-shadow: v.$shadow-lg;
-      text-decoration: none;
-      min-width: 180px;
-
-      &:hover {
-        background: v.$primary-dark;
-        transform: translateY(-2px) scale(1.05);
-        box-shadow: v.$shadow-xl;
-      }
-
-      &:focus {
-        outline: 2px solid v.$accent-color;
-        outline-offset: 2px;
-      }
-
-      &:active {
-        transform: translateY(0);
-      }
-
-      @media (max-width: 768px) {
-        padding: v.$spacing-4 v.$spacing-8;
-        font-size: v.$font-size-lg;
-        min-width: 160px;
-      }
-
-      @media (max-width: 480px) {
-        min-width: 220px;
-        width: 100%;
-        max-width: 280px;
-      }
-    }
-
-    .quality-text {
-      font-size: v.$font-size-3xl;
-      color: v.$text-secondary;
-      font-weight: v.$font-weight-bold;
-      margin-bottom: 0;
-      line-height: v.$line-height-relaxed;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-
-      @media (max-width: 768px) {
-        font-size: v.$font-size-2xl;
-      }
-
-      @media (max-width: 480px) {
-        font-size: v.$font-size-xl;
-      }
-    }
-  }
-
-  .partners-section {
-    margin-top: v.$spacing-20;
-    width: 100%;
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
-
-    .partners-title {
-      font-size: v.$font-size-3xl;
-      font-weight: v.$font-weight-bold;
-      color: v.$primary-color;
-      margin-bottom: v.$spacing-12;
+      color: v.$primary-color; /* Синий цвет из переменных */
       text-align: center;
+      margin: 0;
+      letter-spacing: 0.1em;
+      text-shadow: 0 2px 4px rgba(43, 93, 107, 0.1);
+      animation: pulse 2s ease-in-out;
+    }
+  }
 
-      @media (max-width: 768px) {
-        font-size: v.$font-size-2xl;
-        margin-bottom: v.$spacing-10;
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+
+  .lab-animation-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    
+    // Контейнер для картинок, которые будут блюриться
+    .images-container {
+      width: 100%;
+      height: 100%;
+      transition: filter 1s ease-out;
+      
+      &.blur-images {
+        filter: blur(3px);
       }
-
-      @media (max-width: 480px) {
-        font-size: v.$font-size-xl;
-        margin-bottom: v.$spacing-8;
+    }
+    
+    .lab-half {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        display: block;
+      }
+      
+      &.lab-left {
+        left: 0;
+        // Точная маска для левой части: диагональ от 57% сверху до 40.2% снизу
+        clip-path: polygon(0 0, 57.5% 0, 40.5% 100%, 0 100%);
+        transform: translateX(-100%) translateY(-30%);
+        z-index: 2;
+      }
+      
+      &.lab-right {
+        right: 0;
+        left: 0;
+        // Точная маска для правой части: остальная область
+        clip-path: polygon(56.5% 0, 100% 0, 100% 100%, 39.5% 100%);
+        transform: translateX(100%) translateY(30%);
+        z-index: 1;
       }
     }
 
-    .partners-row {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: v.$spacing-6;
-      flex-wrap: wrap;
-
-      @media (max-width: 768px) {
-        gap: v.$spacing-2;
-        justify-content: space-around;
-      }
-
-      @media (max-width: 480px) {
-        gap: v.$spacing-1;
-        justify-content: space-around;
+    // Анимация запускается только при добавлении класса 'animate'
+    &.animate {
+      .lab-half {
+        &.lab-left {
+          animation: slideInDiagonalLeft 1.5s ease-out forwards;
+        }
+        
+        &.lab-right {
+          animation: slideInDiagonalRight 1.5s ease-out forwards;
+        }
       }
     }
 
-    .partner-logo {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: v.$spacing-4;
-      border-radius: v.$border-radius-lg;
-      transition: all v.$transition-normal;
-      cursor: pointer;
+    // Текст поверх картинок (НЕ блюрится!)
+    .overlay-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 70; // Выше чем картинки, чтобы не блюрилось
+      opacity: 0;
+      transition: opacity 1s ease-in-out; // Быстрее появление
+      text-align: center;
+      max-width: 800px;
+      padding: 0 2rem;
 
-      &:hover {
-        transform: translateY(-4px) scale(1.05);
+      &.show {
+        opacity: 1;
+      }
 
-        .partner-image {
-          filter: brightness(1.1) contrast(1.1);
+      p {
+        font-size: clamp(1.2rem, 3vw, 2rem);
+        font-weight: v.$font-weight-semibold;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        line-height: 1.4;
+        margin: 0;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 2rem;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+      }
+    }
+  }
+
+  .about-us {
+    text-align: center;
+    margin-top: 4rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      margin-bottom: 2rem;
+      color: v.$primary-color;
+    }
+
+    p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      line-height: 1.6;
+      color: v.$text-secondary;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  }
+}
+
+@keyframes slideInDiagonalLeft {
+  0% {
+    transform: translateX(-100%) translateY(-30%);
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+}
+
+@keyframes slideInDiagonalRight {
+  0% {
+    transform: translateX(100%) translateY(30%);
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+}
+
+@keyframes fadeInContent {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Дополнительный контент
+.additional-content {
+  position: relative;
+  z-index: 10;
+  background: v.$bg-primary;
+  padding: 4rem 0;
+  margin-top: 0; /* Убираем отступ */
+  opacity: 0;
+  animation: fadeInContent 1s ease-in-out 0.5s forwards; /* Плавное появление */
+
+  .services-preview {
+    text-align: center;
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: 3rem;
+      color: v.$primary-color;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+
+      .service-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 2px solid transparent;
+
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 30px rgba(43, 93, 107, 0.2);
+          border-color: v.$primary-color;
         }
 
-        .partner-name {
+        h3 {
           color: v.$primary-color;
-        }
-      }
-
-      .partner-image {
-        width: 200px;
-        height: auto;
-        object-fit: contain;
-        margin-bottom: v.$spacing-2;
-        filter: grayscale(30%);
-        transition: all v.$transition-normal;
-        border-radius: v.$border-radius-md;
-
-        @media (max-width: 768px) {
-          width: 140px;
-          height: auto;
+          font-size: 1.5rem;
+          margin-bottom: 1rem;
         }
 
-        @media (max-width: 480px) {
-          width: 110px;
-          height: auto;
+        p {
+          color: v.$text-secondary;
+          line-height: 1.6;
+          margin: 0;
         }
-      }
-
-      .partner-name {
-        font-size: v.$font-size-sm;
-        font-weight: v.$font-weight-medium;
-        color: v.$text-secondary;
-        text-align: center;
-        transition: all v.$transition-normal;
-        margin-top: v.$spacing-1;
-
-        @media (max-width: 768px) {
-          font-size: v.$font-size-base;
-        }
-
-        @media (max-width: 480px) {
-          font-size: v.$font-size-sm;
-        }
-      }
-
-      @media (max-width: 768px) {
-        padding: v.$spacing-5;
-      }
-
-      @media (max-width: 480px) {
-        padding: v.$spacing-4;
-        flex: 0 0 calc(50% - v.$spacing-2);
-        max-width: calc(50% - v.$spacing-2);
       }
     }
   }
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
+// Вариант с составным изображением
+.home-composite {
+  .lab-animation-container {
+    .lab-half {
+      &.lab-left {
+        clip-path: polygon(0 0, 57% 0, 40.2% 100%, 0 100%);
+        transform: translateX(-100%);
+        animation: slideInFromLeft 2.5s ease-out forwards;
+        z-index: 2;
+        
+        img {
+          // Показываем только левую часть составного изображения
+          transform: translateX(0);
+        }
+      }
+      
+      &.lab-right {
+        clip-path: polygon(57% 0, 100% 0, 100% 100%, 40.2% 100%);
+        transform: translateX(100%);
+        animation: slideInFromRight 2.5s ease-out forwards;
+        z-index: 1;
+        
+        img {
+          // Показываем только правую часть составного изображения
+          transform: translateX(0);
+        }
+      }
+    }
   }
-  to {
-    opacity: 1;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+// Мобильная версия
+@media (max-width: 768px) {
+  .home {
+    .biosafe-title {
+      h1 {
+        font-size: clamp(2rem, 12vw, 4rem);
+      }
+    }
+
+    .lab-animation-container {
+      .lab-half {
+        &.lab-left {
+          clip-path: polygon(0 0, 100% 0, 100% 45%, 0 55%);
+          transform: translateY(-100%);
+        }
+        
+        &.lab-right {
+          clip-path: polygon(0 45%, 100% 55%, 100% 100%, 0 100%);
+          transform: translateY(100%);
+        }
+      }
+
+      &.animate {
+        .lab-half {
+          &.lab-left {
+            animation: slideInFromTop 1.5s ease-out forwards;
+          }
+          
+          &.lab-right {
+            animation: slideInFromBottom 1.5s ease-out forwards;
+          }
+        }
+      }
+
+      .overlay-text {
+        padding: 0 1rem;
+
+        p {
+          font-size: clamp(1rem, 4vw, 1.5rem);
+          padding: 1.5rem;
+        }
+      }
+    }
+
+    .additional-content {
+      padding: 2rem 0;
+
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+
+        .service-card {
+          padding: 1.5rem;
+        }
+      }
+    }
+  }
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
     transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+// Скрытие скролла во время анимации
+body {
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+}
+
+// Контент после анимации
+.page-content {
+  position: relative;
+  z-index: 10;
+  background: v.$bg-primary;
+  padding: 4rem 0;
+  min-height: 100vh;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  
+  &.visible {
+    opacity: 1;
+  }
+
+  .services-preview {
+    text-align: center;
+    margin-bottom: 4rem;
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: 3rem;
+      color: v.$primary-color;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+
+      .service-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 2px solid transparent;
+
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 30px rgba(43, 93, 107, 0.2);
+          border-color: v.$primary-color;
+        }
+
+        h3 {
+          color: v.$primary-color;
+          font-size: 1.5rem;
+          margin-bottom: 1rem;
+        }
+
+        p {
+          color: v.$text-secondary;
+          line-height: 1.6;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .about-us {
+    text-align: center;
+    margin: 4rem 0;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      margin-bottom: 2rem;
+      color: v.$primary-color;
+    }
+
+    p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      line-height: 1.6;
+      color: v.$text-secondary;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  }
+
+  .why-choose-us {
+    text-align: center;
+    margin: 4rem 0;
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      margin-bottom: 3rem;
+      color: v.$primary-color;
+    }
+
+    .advantages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+
+      .advantage-item {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: translateY(-3px);
+        }
+
+        h3 {
+          color: v.$primary-color;
+          font-size: 1.3rem;
+          margin-bottom: 1rem;
+        }
+
+        p {
+          color: v.$text-secondary;
+          line-height: 1.5;
+          margin: 0;
+        }
+      }
+    }
   }
 }

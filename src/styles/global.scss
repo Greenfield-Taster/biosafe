@@ -33,6 +33,10 @@ body {
   flex: 1;
   // padding: v.$spacing-4 0;
 
+  &.home-page {
+    padding: 0;
+  }
+
   @media (min-width: 768px) {
     // padding: v.$spacing-8 0;
   }

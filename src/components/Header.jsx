@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { NAVIGATION_ITEMS } from "../utils/routes";
 import logo from "../assets/Logo-Biosafe.png";
 import "../styles/components/Header.scss";
 
-const Header = () => {
+const Header = ({ isHomePage }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showHeader, setShowHeader] = useState(!isHomePage);
   const location = useLocation();
+
+  // Показываем хедер на главной странице через 6 секунд
+  useEffect(() => {
+    if (isHomePage) {
+      const timer = setTimeout(() => {
+        setShowHeader(true);
+      }, 3800);
+      return () => clearTimeout(timer);
+    } else {
+      setShowHeader(true);
+    }
+  }, [isHomePage]);
 
   const isActive = (path) => {
     if (path === "/" && location.pathname === "/") {
@@ -23,7 +36,11 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
+    <header
+      className={`header ${
+        isHomePage ? (showHeader ? "header--show" : "header--hidden") : ""
+      }`}
+    >
       <div className="header__container container">
         <div className="header__logo">
           <Link to="/" className="header__logo-link">
