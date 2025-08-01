@@ -7,13 +7,11 @@ const Home = () => {
   const [showTitle, setShowTitle] = useState(true);
   const [animationStarted, setAnimationStarted] = useState(false);
   const [showOverlayText, setShowOverlayText] = useState(false);
-  const [animationComplete, setAnimationComplete] = useState(false);
   const [showPageContent, setShowPageContent] = useState(false);
 
   useEffect(() => {
-    // Добавляем класс home-page к body и блокируем скролл
+    // Добавляем класс home-page к body
     document.body.classList.add("home-page");
-    document.body.style.overflow = "hidden";
 
     // Начинаем анимацию через 2 секунды
     const animationTimer = setTimeout(() => {
@@ -30,18 +28,9 @@ const Home = () => {
       setShowOverlayText(true);
     }, 3800);
 
-    // Завершаем анимацию и разблокируем скролл через 6 секунд
+    // Завершаем анимацию через 6 секунд
     const completeTimer = setTimeout(() => {
-      setAnimationComplete(true);
-      document.body.style.overflow = "auto";
       setShowPageContent(true);
-      // Делаем полноэкранную анимацию невидимой
-      const fullscreenEl = document.querySelector('.fullscreen-animation');
-      if (fullscreenEl) {
-        fullscreenEl.style.opacity = '0';
-        fullscreenEl.style.visibility = 'hidden';
-        fullscreenEl.style.pointerEvents = 'none';
-      }
     }, 6000);
 
     return () => {
@@ -49,15 +38,14 @@ const Home = () => {
       clearTimeout(titleTimer);
       clearTimeout(overlayTimer);
       clearTimeout(completeTimer);
-      // Убираем класс и разблокируем скролл при размонтировании компонента
+      // Убираем класс при размонтировании компонента
       document.body.classList.remove("home-page");
-      document.body.style.overflow = "auto";
     };
   }, []);
 
   return (
     <div className="home">
-      {/* Полноэкранная анимация */}
+      {/* Первая секция - анимация */}
       <div className="fullscreen-animation">
         {/* Заголовок BIOSAFE */}
         <div className={`biosafe-title ${!showTitle ? "fade-out" : ""}`}>
@@ -71,7 +59,9 @@ const Home = () => {
         >
           {/* Контейнер для картинок (будет блюриться) */}
           <div
-            className={`images-container ${showOverlayText ? "blur-images" : ""}`}
+            className={`images-container ${
+              showOverlayText ? "blur-images" : ""
+            }`}
           >
             {/* Левая часть диагонального разреза */}
             <div className="lab-half lab-left">
@@ -97,7 +87,7 @@ const Home = () => {
 
       {/* Контент после анимации */}
       <div className={`page-content ${showPageContent ? 'visible' : ''}`}>
-        <div className="container">
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
           <section className="services-preview">
             <h2>Наші послуги</h2>
             <div className="services-grid">
