@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import labLeft from "../assets/images/photo_2025-07-28_09-21-02.jpg";
-import labRight from "../assets/images/photo_2025-07-28_09-21-02.jpg";
+import labLeft from "../assets/images/home-photo.jpg";
+import labRight from "../assets/images/home-photo.jpg";
 import "../styles/scss/Home.scss";
 
 const Home = () => {
@@ -86,16 +86,18 @@ const Home = () => {
       </div>
 
       {/* Контент после анимации */}
-      <div className={`page-content ${showPageContent ? 'visible' : ''}`}>
-        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
+      <div className={`page-content ${showPageContent ? "visible" : ""}`}>
+        <div
+          className="container"
+          style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 2rem" }}
+        >
           <section className="services-preview">
             <h2>Наші послуги</h2>
             <div className="services-grid">
               <div className="service-card">
                 <h3>Консультування</h3>
                 <p>
-                  Професійна підтримка та консультації від досвідчених
-                  експертів
+                  Професійна підтримка та консультації від досвідчених експертів
                 </p>
               </div>
               <div className="service-card">
@@ -108,7 +110,7 @@ const Home = () => {
               </div>
             </div>
           </section>
-          
+
           <section className="about-us">
             <h2>Про нас</h2>
             <p>
