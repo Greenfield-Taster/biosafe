@@ -143,11 +143,15 @@
 
 // Контент после анимации
 .page-content {
-  background: linear-gradient(135deg, v.$bg-secondary 0%, v.$biosafe-light 100%);
+  background: linear-gradient(
+    135deg,
+    v.$bg-secondary 0%,
+    v.$biosafe-light 100%
+  );
   min-height: 100vh;
   opacity: 0;
   transition: opacity 0.8s ease-in-out;
-  padding: 8rem 2rem;
+  padding: 8rem 2rem 0 2rem;
   position: relative;
   z-index: 50;
 
@@ -200,9 +204,13 @@
       margin: 0;
     }
 
-    // Анимация появления с задержкой для второго блока
+    // Анимация появления с задержкой для второго и третьего блоков
     &:nth-child(2) {
       animation-delay: 0.3s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 0.6s;
     }
 
     &:hover {
@@ -213,7 +221,11 @@
 
   // Консалтинг блок - темный фон, светлый текст, справа
   .consulting-block {
-    background: linear-gradient(135deg, v.$biosafe-dark 0%, darken(v.$biosafe-dark, 10%) 100%);
+    background: linear-gradient(
+      135deg,
+      v.$biosafe-dark 0%,
+      darken(v.$biosafe-dark, 10%) 100%
+    );
     margin-left: auto;
     margin-right: 0;
     width: calc(100% - 10rem);
@@ -225,7 +237,11 @@
 
     h2 {
       color: v.$biosafe-light;
-      background: linear-gradient(45deg, v.$biosafe-light, rgba(255,255,255,0.9));
+      background: linear-gradient(
+        45deg,
+        v.$biosafe-light,
+        rgba(255, 255, 255, 0.9)
+      );
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -238,7 +254,11 @@
 
   // Дослідження блок - светлый фон, темный текст, слева
   .research-block {
-    background: linear-gradient(135deg, v.$biosafe-light 0%, lighten(v.$biosafe-light, 3%) 100%);
+    background: linear-gradient(
+      135deg,
+      v.$biosafe-light 0%,
+      lighten(v.$biosafe-light, 3%) 100%
+    );
     margin-left: 0;
     margin-right: auto;
     width: calc(100% - 10rem);
@@ -251,7 +271,11 @@
 
     h2 {
       color: v.$biosafe-dark;
-      background: linear-gradient(45deg, v.$biosafe-dark, lighten(v.$biosafe-dark, 15%));
+      background: linear-gradient(
+        45deg,
+        v.$biosafe-dark,
+        lighten(v.$biosafe-dark, 15%)
+      );
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -259,6 +283,133 @@
 
     p {
       color: darken(v.$biosafe-dark, 5%);
+    }
+  }
+}
+
+// Лозунг компанії - повноширинний фінальний блок (виносимо за межі page-content)
+.company-motto {
+  background: linear-gradient(
+    to top,
+    v.$biosafe-dark 20%,
+    rgba(11, 46, 68, 0.8) 60%,
+    rgba(11, 46, 68, 0.2) 85%,
+    transparent 100%
+  );
+  margin: 8rem calc(-50vw + 50%) 0;
+  width: 100vw;
+  padding: 8rem 4rem 12rem;
+  position: relative;
+  text-align: center;
+  opacity: 0;
+  animation: fadeInUp 1.5s ease-out forwards;
+  animation-delay: 0.8s;
+  overflow: hidden;
+
+  // Четкая линия только снизу
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: v.$primary-color;
+    box-shadow: 0 0 10px rgba(43, 93, 107, 0.5);
+  }
+
+  // Дополнительное затухание по бокам
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        ellipse at center top,
+        transparent 30%,
+        rgba(11, 46, 68, 0.1) 70%,
+        rgba(11, 46, 68, 0.3) 90%
+      ),
+      linear-gradient(
+        to right,
+        rgba(11, 46, 68, 0.2) 0%,
+        transparent 15%,
+        transparent 85%,
+        rgba(11, 46, 68, 0.2) 100%
+      );
+    pointer-events: none;
+  }
+
+  .motto-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-family: v.$font-family-display;
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: v.$font-weight-semibold;
+    color: white;
+    margin-bottom: 4rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .values-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 2rem;
+  }
+
+  .value-item {
+    display: inline-block;
+    padding: 1.4rem 2.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    font-family: v.$font-family-primary;
+    font-size: v.$font-size-lg;
+    font-weight: v.$font-weight-medium;
+    letter-spacing: 0.02em;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+
+    // Светящийся эффект при наведении
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      transition: left 0.8s ease;
+    }
+
+    &:hover {
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.4);
+
+      &::before {
+        left: 100%;
+      }
     }
   }
 }
@@ -322,6 +473,28 @@
   100% {
     opacity: 1;
     transform: skewX(-8deg) translateX(0);
+  }
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -429,6 +602,34 @@
       width: calc(100% - 4rem);
       margin-left: 2rem;
       margin-right: 2rem;
+    }
+  }
+}
+
+// Мобильные стили для лозунга
+@media (max-width: 768px) {
+  .company-motto {
+    margin: 4rem calc(-50vw + 50%) 0;
+    padding: 6rem 2rem 8rem;
+    width: 100vw;
+
+    h2 {
+      font-size: clamp(1.6rem, 6vw, 2.4rem);
+      margin-bottom: 3rem;
+    }
+
+    .values-list {
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .value-item {
+      padding: 1.2rem 2.4rem;
+      font-size: v.$font-size-base;
+      width: fit-content;
+      min-width: 220px;
+      max-width: calc(100% - 4rem);
     }
   }
 }

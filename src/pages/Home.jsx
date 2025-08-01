@@ -122,6 +122,18 @@ const Home = () => {
             </div>
           </div>
         </div>
+
+        {/* Лозунг компанії - повноширинний фінальний блок */}
+        <div className="company-motto">
+          <div className="motto-content">
+            <h2>Ми працюємо для тих, хто цінує</h2>
+            <div className="values-list">
+              <span className="value-item">ефективність</span>
+              <span className="value-item">точність</span>
+              <span className="value-item">професійний розвиток</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
