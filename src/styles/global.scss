@@ -6,6 +6,12 @@
   box-sizing: border-box;
 }
 
+*,
+*::before,
+*::after {
+  max-width: 100%;
+}
+
 html {
   scroll-behavior: smooth;
   font-size: 16px;
@@ -23,15 +29,23 @@ body {
   overflow-x: hidden; // Предотвращаем горизонтальный скролл
 }
 
+html {
+  overflow-x: hidden; // Дополнительная защита от горизонтального скролла
+}
+
 .app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: v.$bg-gradient;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .main-content {
   flex: 1;
+  overflow-x: hidden;
+  width: 100%;
   // padding: v.$spacing-4 0;
 
   &.home-page {
@@ -75,8 +89,16 @@ h6 {
   max-width: v.$container-max-width;
   margin: 0 auto;
   padding: 0 v.$container-padding;
+  overflow-x: hidden;
+  width: 100%;
 
   @media (max-width: 768px) {
     padding: 0 v.$spacing-3;
   }
+}
+
+// Утилитарный класс для предотвращения горизонтального скролла
+.no-overflow {
+  overflow-x: hidden;
+  max-width: 100%;
 }

@@ -55,7 +55,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="home">
+    <div className="home no-overflow">
       {/* Первая секция - анимация */}
       <div className="fullscreen-animation">
         {/* Заголовок BIOSAFE */}
