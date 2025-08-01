@@ -43,16 +43,6 @@
     }
   }
 
-  @keyframes pulse {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
-  }
-
   .lab-animation-container {
     position: absolute;
     top: 0;
@@ -89,7 +79,6 @@
 
       &.lab-left {
         left: 0;
-        // Точная маска для левой части: диагональ от 57% сверху до 40.2% снизу
         clip-path: polygon(0 0, 57.5% 0, 40.5% 100%, 0 100%);
         transform: translateX(-100%) translateY(-30%);
         z-index: 2;
@@ -98,7 +87,6 @@
       &.lab-right {
         right: 0;
         left: 0;
-        // Точная маска для правой части: остальная область
         clip-path: polygon(56.5% 0, 100% 0, 100% 100%, 39.5% 100%);
         transform: translateX(100%) translateY(30%);
         z-index: 1;
@@ -118,15 +106,15 @@
       }
     }
 
-    // Текст поверх картинок (НЕ блюрится!)
+    // Текст поверх картинок
     .overlay-text {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      z-index: 70; // Выше чем картинки, чтобы не блюрилось
+      z-index: 70;
       opacity: 0;
-      transition: opacity 1s ease-in-out; // Быстрее появление
+      transition: opacity 1s ease-in-out;
       text-align: center;
       max-width: 1200px;
       padding: 0 2rem;
@@ -136,43 +124,153 @@
       }
 
       p {
-        font-family: v.$font-family-primary; // Inter шрифт
-        font-size: v.$font-size-4xl; // Увеличенный размер
+        font-family: v.$font-family-primary;
+        font-size: v.$font-size-4xl;
         font-weight: v.$font-weight-semibold;
         color: white;
         text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
         line-height: 1.4;
         margin: 0;
-        background: rgba(71, 71, 71, 0.6); // Больше затемнения
-        padding: 2.5rem 3rem; // Больше внутренних отступов
+        background: rgba(71, 71, 71, 0.6);
+        padding: 2.5rem 3rem;
         border-radius: 20px;
-        backdrop-filter: blur(15px); // Увеличенный backdrop blur
-        border: 1px solid rgba(255, 255, 255, 0.2); // Тонкая светлая граница
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
       }
     }
   }
+}
 
-  .about-us {
-    text-align: center;
-    margin-top: 4rem;
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+// Контент после анимации
+.page-content {
+  background: linear-gradient(135deg, v.$bg-secondary 0%, v.$biosafe-light 100%);
+  min-height: 100vh;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  padding: 8rem 2rem;
+  position: relative;
+  z-index: 50;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  .services-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8rem;
+    position: relative;
+  }
+
+  .service-block {
+    position: relative;
+    padding: 4rem 6rem;
+    transform: skewX(-8deg);
+    box-shadow: 0 20px 60px rgba(11, 46, 68, 0.15);
+    backdrop-filter: blur(10px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    animation: slideInUp 1s ease-out forwards;
+    overflow: hidden;
+    border-radius: 8px;
+
+    .service-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      transform: skewX(8deg); // Компенсируем наклон родителя
+    }
 
     h2 {
-      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-family: v.$font-family-display;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: v.$font-weight-bold;
+      letter-spacing: -0.02em;
       margin-bottom: 2rem;
-      color: v.$primary-color;
+      line-height: 1.1;
     }
 
     p {
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      line-height: 1.6;
-      color: v.$text-secondary;
-      max-width: 800px;
-      margin: 0 auto;
+      font-family: v.$font-family-primary;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: v.$font-weight-normal;
+      line-height: 1.7;
+      margin: 0;
     }
+
+    // Анимация появления с задержкой для второго блока
+    &:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+
+    &:hover {
+      transform: skewX(-8deg) translateY(-8px) scale(1.02);
+      box-shadow: 0 30px 80px rgba(11, 46, 68, 0.25);
+    }
+  }
+
+  // Консалтинг блок - темный фон, светлый текст, справа
+  .consulting-block {
+    background: linear-gradient(135deg, v.$biosafe-dark 0%, darken(v.$biosafe-dark, 10%) 100%);
+    margin-left: auto;
+    margin-right: 0;
+    width: calc(100% - 10rem);
+    animation: slideInFromRight 1s ease-out forwards;
+
+    .service-content {
+      margin-left: 0;
+    }
+
+    h2 {
+      color: v.$biosafe-light;
+      background: linear-gradient(45deg, v.$biosafe-light, rgba(255,255,255,0.9));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      color: rgba(240, 248, 252, 0.95);
+    }
+  }
+
+  // Дослідження блок - светлый фон, темный текст, слева
+  .research-block {
+    background: linear-gradient(135deg, v.$biosafe-light 0%, lighten(v.$biosafe-light, 3%) 100%);
+    margin-left: 0;
+    margin-right: auto;
+    width: calc(100% - 10rem);
+    animation: slideInFromLeft 1s ease-out forwards;
+    border: 1px solid rgba(11, 46, 68, 0.1);
+
+    .service-content {
+      margin-right: 0;
+    }
+
+    h2 {
+      color: v.$biosafe-dark;
+      background: linear-gradient(45deg, v.$biosafe-dark, lighten(v.$biosafe-dark, 15%));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      color: darken(v.$biosafe-dark, 5%);
+    }
+  }
+}
+
+// Анимации
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
   }
 }
 
@@ -194,118 +292,36 @@
   }
 }
 
-@keyframes fadeInContent {
+@keyframes slideInUp {
   0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: skewX(-8deg) translateY(50px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-// Дополнительный контент
-.additional-content {
-  position: relative;
-  z-index: 10;
-  background: v.$bg-primary;
-  padding: 4rem 0;
-  margin-top: 0;
-  opacity: 0;
-  animation: fadeInContent 1s ease-in-out 0.5s forwards;
-
-  .services-preview {
-    text-align: center;
-
-    h2 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      margin-bottom: 3rem;
-      color: v.$primary-color;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-
-      .service-card {
-        background: white;
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: 2px solid transparent;
-
-        &:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 8px 30px rgba(43, 93, 107, 0.2);
-          border-color: v.$primary-color;
-        }
-
-        h3 {
-          color: v.$primary-color;
-          font-size: 1.5rem;
-          margin-bottom: 1rem;
-        }
-
-        p {
-          color: v.$text-secondary;
-          line-height: 1.6;
-          margin: 0;
-        }
-      }
-    }
-  }
-}
-
-// Вариант с составным изображением
-.home-composite {
-  .lab-animation-container {
-    .lab-half {
-      &.lab-left {
-        clip-path: polygon(0 0, 57% 0, 40.2% 100%, 0 100%);
-        transform: translateX(-100%);
-        animation: slideInFromLeft 2.5s ease-out forwards;
-        z-index: 2;
-
-        img {
-          // Показываем только левую часть составного изображения
-          transform: translateX(0);
-        }
-      }
-
-      &.lab-right {
-        clip-path: polygon(57% 0, 100% 0, 100% 100%, 40.2% 100%);
-        transform: translateX(100%);
-        animation: slideInFromRight 2.5s ease-out forwards;
-        z-index: 1;
-
-        img {
-          // Показываем только правую часть составного изображения
-          transform: translateX(0);
-        }
-      }
-    }
-  }
-}
-
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
+    transform: skewX(-8deg) translateY(0);
   }
 }
 
 @keyframes slideInFromRight {
   0% {
-    transform: translateX(100%);
+    opacity: 0;
+    transform: skewX(-8deg) translateX(100px);
   }
   100% {
-    transform: translateX(0);
+    opacity: 1;
+    transform: skewX(-8deg) translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: skewX(-8deg) translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: skewX(-8deg) translateX(0);
   }
 }
 
@@ -353,6 +369,38 @@
       }
     }
   }
+
+  .page-content {
+    padding: 4rem 1rem;
+
+    .services-container {
+      gap: 4rem;
+    }
+
+    .service-block {
+      padding: 3rem 2rem;
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      transform: skewX(-4deg); // Уменьшаем наклон для мобильных
+
+      h2 {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+      }
+
+      p {
+        font-size: clamp(1rem, 3vw, 1.2rem);
+      }
+
+      &:hover {
+        transform: skewX(-4deg) translateY(-5px) scale(1.01);
+      }
+
+      .service-content {
+        transform: skewX(4deg); // Компенсируем меньший наклон
+      }
+    }
+  }
 }
 
 @keyframes slideInFromTop {
@@ -373,133 +421,14 @@
   }
 }
 
-// Скрытие скролла во время анимации
-body {
-  &::-webkit-scrollbar {
-    width: 0px;
-    background: transparent;
-  }
-}
-
-// Контент после анимации
-.page-content {
-  background: v.$bg-primary;
-  padding: 4rem 0;
-  min-height: 100vh;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-
-  &.visible {
-    opacity: 1;
-  }
-
-  .services-preview {
-    text-align: center;
-    margin-bottom: 4rem;
-
-    h2 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      margin-bottom: 3rem;
-      color: v.$primary-color;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-
-      .service-card {
-        background: white;
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: 2px solid transparent;
-
-        &:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 8px 30px rgba(43, 93, 107, 0.2);
-          border-color: v.$primary-color;
-        }
-
-        h3 {
-          color: v.$primary-color;
-          font-size: 1.5rem;
-          margin-bottom: 1rem;
-        }
-
-        p {
-          color: v.$text-secondary;
-          line-height: 1.6;
-          margin: 0;
-        }
-      }
-    }
-  }
-
-  .about-us {
-    text-align: center;
-    margin: 4rem 0;
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-
-    h2 {
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      margin-bottom: 2rem;
-      color: v.$primary-color;
-    }
-
-    p {
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      line-height: 1.6;
-      color: v.$text-secondary;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-  }
-
-  .why-choose-us {
-    text-align: center;
-    margin: 4rem 0;
-
-    h2 {
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      margin-bottom: 3rem;
-      color: v.$primary-color;
-    }
-
-    .advantages-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-
-      .advantage-item {
-        background: white;
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        transition: transform 0.3s ease;
-
-        &:hover {
-          transform: translateY(-3px);
-        }
-
-        h3 {
-          color: v.$primary-color;
-          font-size: 1.3rem;
-          margin-bottom: 1rem;
-        }
-
-        p {
-          color: v.$text-secondary;
-          line-height: 1.5;
-          margin: 0;
-        }
-      }
+// Адаптивность
+@media (max-width: 1200px) {
+  .page-content {
+    .consulting-block,
+    .research-block {
+      width: calc(100% - 4rem);
+      margin-left: 2rem;
+      margin-right: 2rem;
     }
   }
 }

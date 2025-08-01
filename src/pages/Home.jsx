@@ -8,38 +8,49 @@ const Home = () => {
   const [animationStarted, setAnimationStarted] = useState(false);
   const [showOverlayText, setShowOverlayText] = useState(false);
   const [showPageContent, setShowPageContent] = useState(false);
+  const [scrollEnabled, setScrollEnabled] = useState(false);
 
   useEffect(() => {
     // Добавляем класс home-page к body
     document.body.classList.add("home-page");
+    
+    // Простая блокировка скролла
+    document.body.style.overflow = "hidden";
 
     // Начинаем анимацию через 2 секунды
     const animationTimer = setTimeout(() => {
       setAnimationStarted(true);
     }, 2000);
 
-    // Убираем заголовок через 2.05 секунд (еще быстрее исчезновение)
+    // Убираем заголовок через 2.05 секунд
     const titleTimer = setTimeout(() => {
       setShowTitle(false);
     }, 2050);
 
-    // Показываем текст поверх картинок и блюрим их через 3.8 секунды (быстрее)
+    // Показываем текст поверх картинок через 3.8 секунды
     const overlayTimer = setTimeout(() => {
       setShowOverlayText(true);
     }, 3800);
 
-    // Завершаем анимацию через 6 секунд
+    // Показываем контент через 4 секунды
     const completeTimer = setTimeout(() => {
       setShowPageContent(true);
-    }, 6000);
+    }, 4000);
+
+    // Разрешаем скролл через 4.5 секунды
+    const scrollTimer = setTimeout(() => {
+      setScrollEnabled(true);
+      document.body.style.overflow = "auto";
+    }, 4500);
 
     return () => {
       clearTimeout(animationTimer);
       clearTimeout(titleTimer);
       clearTimeout(overlayTimer);
       clearTimeout(completeTimer);
-      // Убираем класс при размонтировании компонента
+      clearTimeout(scrollTimer);
       document.body.classList.remove("home-page");
+      document.body.style.overflow = "auto";
     };
   }, []);
 
@@ -87,60 +98,29 @@ const Home = () => {
 
       {/* Контент после анимации */}
       <div className={`page-content ${showPageContent ? "visible" : ""}`}>
-        <div
-          className="container"
-          style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 2rem" }}
-        >
-          <section className="services-preview">
-            <h2>Наші послуги</h2>
-            <div className="services-grid">
-              <div className="service-card">
-                <h3>Консультування</h3>
-                <p>
-                  Професійна підтримка та консультації від досвідчених експертів
-                </p>
-              </div>
-              <div className="service-card">
-                <h3>Діагностика</h3>
-                <p>Сучасні методи діагностики та аналізу</p>
-              </div>
-              <div className="service-card">
-                <h3>Управління якістю</h3>
-                <p>Комплексні рішення для забезпечення якості</p>
-              </div>
+        <div className="services-container">
+          {/* Блок Консалтинг - темный фон, светлый текст, справа */}
+          <div className="service-block consulting-block">
+            <div className="service-content">
+              <h2>КОНСАЛТІНГ</h2>
+              <p>
+                Надаємо послуги з консалтингу, бізнес-аналізу, впровадження
+                систем управління якістю, супроводу акредитації за
+                міжнародними та галузевими стандартами (зокрема ISO 15189).
+              </p>
             </div>
-          </section>
+          </div>
 
-          <section className="about-us">
-            <h2>Про нас</h2>
-            <p>
-              Наша компанія спеціалізується на наданні послуг у сфері
-              біотехнологій та управління якістю. Ми прагнемо до інновацій та
-              високих стандартів у всіх наших проектах.
-            </p>
-          </section>
-
-          <section className="why-choose-us">
-            <h2>Чому обирають нас</h2>
-            <div className="advantages-grid">
-              <div className="advantage-item">
-                <h3>🔬 Професійність</h3>
-                <p>Команда досвідчених фахівців з багаторічним досвідом</p>
-              </div>
-              <div className="advantage-item">
-                <h3>⚡ Швидкість</h3>
-                <p>Оперативне виконання завдань та швидка подача результатів</p>
-              </div>
-              <div className="advantage-item">
-                <h3>🎯 Точність</h3>
-                <p>Високі стандарти якості та достовірність результатів</p>
-              </div>
-              <div className="advantage-item">
-                <h3>🤝 Підтримка</h3>
-                <p>Повний супровід проектів від початку до завершення</p>
-              </div>
+          {/* Блок Дослідження - светлый фон, темный текст, слева */}
+          <div className="service-block research-block">
+            <div className="service-content">
+              <h2>ДОСЛІДЖЕННЯ ТА ДІАГНОСТИКА</h2>
+              <p>
+                Виконуємо ветеринарні лабораторні дослідження відповідно до
+                вимог міжнародних стандартів.
+              </p>
             </div>
-          </section>
+          </div>
         </div>
       </div>
     </div>
