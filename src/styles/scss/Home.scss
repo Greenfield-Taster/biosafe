@@ -110,41 +110,133 @@
       }
     }
 
-    // Текст поверх картинок
+    // Контент поверх картинок
     .overlay-text {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       z-index: 70;
       opacity: 0;
       transition: opacity 1s ease-in-out;
-      text-align: center;
-      max-width: 1200px;
-      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem;
 
       &.show {
         opacity: 1;
       }
 
-      p {
-        font-family: v.$font-family-primary;
-        font-size: v.$font-size-4xl;
-        font-weight: v.$font-weight-semibold;
-        color: white;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-        line-height: 1.4;
-        margin: 0;
-        background: linear-gradient(135deg, 
-          rgba(11, 46, 68, 0.85) 0%, 
-          rgba(43, 93, 107, 0.75) 50%, 
-          rgba(11, 46, 68, 0.9) 100%
+      .intro-text {
+        text-align: center;
+        margin-bottom: 7rem;
+        width: 100%;
+
+        p {
+          font-family: v.$font-family-primary;
+          font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+          font-weight: v.$font-weight-semibold;
+          color: white;
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+          line-height: 1.4;
+          margin: 0 auto;
+          max-width: 1200px;
+          background: linear-gradient(
+            135deg,
+            rgba(11, 46, 68, 0.85) 0%,
+            rgba(43, 93, 107, 0.75) 50%,
+            rgba(11, 46, 68, 0.9) 100%
+          );
+          padding: 2.5rem 3rem;
+          border-radius: 20px;
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(240, 248, 252, 0.3);
+          box-shadow: 0 8px 32px rgba(11, 46, 68, 0.3);
+        }
+      }
+
+      .services-links {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 1000px;
+      }
+
+      .service-link {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        background: linear-gradient(
+          135deg,
+          rgba(43, 93, 107, 0.3) 0%,
+          rgba(11, 46, 68, 0.4) 100%
         );
-        padding: 2.5rem 3rem;
-        border-radius: 20px;
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(240, 248, 252, 0.3);
-        box-shadow: 0 8px 32px rgba(11, 46, 68, 0.3);
+        backdrop-filter: blur(20px);
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        border-radius: 24px;
+        padding: 3rem 2rem;
+        height: 280px;
+        text-align: center;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 8px 32px rgba(11, 46, 68, 0.2);
+
+        &:hover {
+          transform: translateY(-8px) scale(1.05);
+          background: linear-gradient(
+            135deg,
+            rgba(43, 93, 107, 0.5) 0%,
+            rgba(11, 46, 68, 0.6) 100%
+          );
+          border-color: rgba(255, 255, 255, 0.3);
+          box-shadow: 0 16px 48px rgba(11, 46, 68, 0.3);
+
+          .service-icon svg {
+            transform: scale(1.1) rotate(5deg);
+          }
+        }
+
+        .service-icon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 1.5rem;
+
+          svg {
+            width: 48px;
+            height: 48px;
+            color: white;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            transition: transform 0.3s ease;
+          }
+        }
+
+        h3 {
+          font-family: v.$font-family-display;
+          font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+          font-weight: v.$font-weight-bold;
+          color: white;
+          margin: 0 0 1rem 0;
+          letter-spacing: 0.02em;
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+          font-family: v.$font-family-primary;
+          font-size: clamp(0.9rem, 1.6vw, 1rem);
+          font-weight: v.$font-weight-normal;
+          color: rgba(255, 255, 255, 0.9);
+          line-height: 1.5;
+          margin: 0;
+          text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
       }
     }
   }
@@ -157,10 +249,10 @@
     v.$bg-secondary 0%,
     v.$biosafe-light 100%
   );
-  min-height: 100vh;
+  min-height: 40vh;
   opacity: 0;
   transition: opacity 0.8s ease-in-out;
-  padding: 8rem 0 0 0;
+
   position: relative;
   z-index: 50;
   overflow-x: hidden;
@@ -168,135 +260,6 @@
 
   &.visible {
     opacity: 1;
-  }
-
-  .services-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 8rem;
-    position: relative;
-  }
-
-  .service-block {
-    position: relative;
-    padding: 4rem 6rem;
-    transform: skewX(-8deg);
-    box-shadow: 0 20px 60px rgba(11, 46, 68, 0.15);
-    backdrop-filter: blur(10px);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    animation: slideInUp 1s ease-out forwards;
-    overflow: hidden;
-    border-radius: 8px;
-
-    .service-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      transform: skewX(8deg); // Компенсируем наклон родителя
-    }
-
-    h2 {
-      font-family: v.$font-family-display;
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: v.$font-weight-bold;
-      letter-spacing: -0.02em;
-      margin-bottom: 2rem;
-      line-height: 1.1;
-    }
-
-    p {
-      font-family: v.$font-family-primary;
-      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-      font-weight: v.$font-weight-normal;
-      line-height: 1.7;
-      margin: 0;
-    }
-
-    // Анимация появления с задержкой для второго и третьего блоков
-    &:nth-child(2) {
-      animation-delay: 0.3s;
-    }
-
-    &:nth-child(3) {
-      animation-delay: 0.6s;
-    }
-
-    &:hover {
-      transform: skewX(-8deg) translateY(-8px) scale(1.02);
-      box-shadow: 0 30px 80px rgba(11, 46, 68, 0.25);
-    }
-  }
-
-  // Консалтинг блок - темный фон, светлый текст, справа
-  .consulting-block {
-    background: linear-gradient(
-      135deg,
-      v.$biosafe-dark 0%,
-      color.adjust(v.$biosafe-dark, $lightness: -10%) 100%
-    );
-    margin-left: auto;
-    margin-right: 0;
-    width: min(calc(100% - 10rem), 1200px);
-    max-width: calc(100% - 4rem);
-    animation: slideInFromRight 1s ease-out forwards;
-
-    .service-content {
-      margin-left: 0;
-    }
-
-    h2 {
-      color: v.$biosafe-light;
-      background: linear-gradient(
-        45deg,
-        v.$biosafe-light,
-        rgba(255, 255, 255, 0.9)
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    p {
-      color: rgba(240, 248, 252, 0.95);
-    }
-  }
-
-  // Дослідження блок - светлый фон, темный текст, слева
-  .research-block {
-    background: linear-gradient(
-      135deg,
-      v.$biosafe-light 0%,
-      color.adjust(v.$biosafe-light, $lightness: 3%) 100%
-    );
-    margin-left: 0;
-    margin-right: auto;
-    width: min(calc(100% - 10rem), 1200px);
-    max-width: calc(100% - 4rem);
-    animation: slideInFromLeft 1s ease-out forwards;
-    border: 1px solid rgba(11, 46, 68, 0.1);
-
-    .service-content {
-      margin-right: 0;
-    }
-
-    h2 {
-      color: v.$biosafe-dark;
-      background: linear-gradient(
-        45deg,
-        v.$biosafe-dark,
-        color.adjust(v.$biosafe-dark, $lightness: 15%)
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    p {
-      color: color.adjust(v.$biosafe-dark, $lightness: -5%);
-    }
   }
 }
 
@@ -309,7 +272,6 @@
     rgba(11, 46, 68, 0.2) 85%,
     transparent 100%
   );
-  margin: 8rem 0 0;
   width: 100%;
   padding: 8rem 4rem 12rem;
   position: relative;
@@ -456,50 +418,6 @@
   }
 }
 
-@keyframes slideInUp {
-  0% {
-    opacity: 0;
-    transform: skewX(-8deg) translateY(50px);
-  }
-  100% {
-    opacity: 1;
-    transform: skewX(-8deg) translateY(0);
-  }
-}
-
-@keyframes slideInFromRight {
-  0% {
-    opacity: 0;
-    transform: skewX(-8deg) translateX(100px);
-  }
-  100% {
-    opacity: 1;
-    transform: skewX(-8deg) translateX(0);
-  }
-}
-
-@keyframes slideInFromLeft {
-  0% {
-    opacity: 0;
-    transform: skewX(-8deg) translateX(-100px);
-  }
-  100% {
-    opacity: 1;
-    transform: skewX(-8deg) translateX(0);
-  }
-}
-
-@keyframes fadeInScale {
-  0% {
-    opacity: 0;
-    transform: scale(0.9) translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -546,46 +464,47 @@
       }
 
       .overlay-text {
-        padding: 0 1rem;
+        padding: 3rem 1rem 2rem;
 
-        p {
-          font-size: clamp(1rem, 4vw, 1.5rem);
-          padding: 1.5rem;
+        .intro-text {
+          margin-bottom: 3rem;
+
+          p {
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            padding: 2rem 1.5rem;
+            max-width: 100%;
+          }
+        }
+
+        .services-links {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+          max-width: 400px;
+        }
+
+        .service-link {
+          height: 240px;
+          padding: 2rem 1.5rem;
+
+          .service-icon svg {
+            width: 40px;
+            height: 40px;
+          }
+
+          h3 {
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+          }
+
+          p {
+            font-size: clamp(0.85rem, 3vw, 0.95rem);
+          }
         }
       }
     }
   }
 
   .page-content {
-    padding: 4rem 1rem;
-
-    .services-container {
-      gap: 4rem;
-    }
-
-    .service-block {
-      padding: 3rem 2rem;
-      width: 100%;
-      margin-left: 0;
-      margin-right: 0;
-      transform: skewX(-4deg); // Уменьшаем наклон для мобильных
-
-      h2 {
-        font-size: clamp(1.8rem, 6vw, 2.5rem);
-      }
-
-      p {
-        font-size: clamp(1rem, 3vw, 1.2rem);
-      }
-
-      &:hover {
-        transform: skewX(-4deg) translateY(-5px) scale(1.01);
-      }
-
-      .service-content {
-        transform: skewX(4deg); // Компенсируем меньший наклон
-      }
-    }
+    padding: 2rem 1rem;
   }
 }
 
@@ -607,15 +526,33 @@
   }
 }
 
-// Адаптивность
+// Адаптивность для планшетов
 @media (max-width: 1200px) {
-  .page-content {
-    .consulting-block,
-    .research-block {
-      width: 100%;
-      max-width: calc(100% - 4rem);
-      margin-left: 2rem;
-      margin-right: 2rem;
+  .home {
+    .lab-animation-container {
+      .overlay-text {
+        padding: 3rem 2rem;
+
+        .intro-text {
+          margin-bottom: 3rem;
+
+          p {
+            font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+            padding: 2rem 2.5rem;
+            max-width: 1000px;
+          }
+        }
+
+        .services-links {
+          gap: 2.5rem;
+          max-width: 900px;
+        }
+
+        .service-link {
+          height: 260px;
+          padding: 2.5rem 2rem;
+        }
+      }
     }
   }
 }
