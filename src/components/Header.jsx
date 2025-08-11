@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { NAVIGATION_ITEMS } from "../utils/routes";
 import logo from "../assets/Logo-Biosafe.png";
 import "../styles/components/Header.scss";
+
+// Основная навигация
+const NAVIGATION_ITEMS = [
+  { path: "/", name: "Головна" },
+  { path: "/consulting", name: "Консалтинг" },
+  { path: "/diagnostics", name: "Діагностика" },
+  { path: "/help", name: "Допомога" },
+  { path: "/contact", name: "Контакти" },
+];
 
 const Header = ({ isHomePage }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,6 +28,29 @@ const Header = ({ isHomePage }) => {
       setShowHeader(true);
     }
   }, [isHomePage]);
+
+  // Проверяем, находимся ли мы на странице консалтинга или её подстраницах
+  const isConsultingPage = location.pathname.startsWith('/consulting');
+
+  // Создаем расширенную навигацию для страницы консалтинга
+  const getNavigationItems = () => {
+    if (isConsultingPage) {
+      // Находим индекс элемента "Консалтинг"
+      const consultingIndex = NAVIGATION_ITEMS.findIndex(item => item.path === '/consulting');
+      
+      // Создаем новый массив с вставкой подстраниц после консалтинга
+      const newItems = [...NAVIGATION_ITEMS];
+      newItems.splice(consultingIndex + 1, 0, 
+        { path: '/consulting/consultants', name: "Консультанти" },
+        { path: '/consulting/request-consultation', name: "Замовити консультацію" }
+      );
+      
+      return newItems;
+    }
+    return NAVIGATION_ITEMS;
+  };
+
+  const navigationItems = getNavigationItems();
 
   const isActive = (path) => {
     if (path === "/" && location.pathname === "/") {
@@ -51,7 +82,7 @@ const Header = ({ isHomePage }) => {
         {/* Desktop Navigation */}
         <nav className="header__nav">
           <ul className="header__nav-list">
-            {NAVIGATION_ITEMS.map((item, index) => (
+            {navigationItems.map((item, index) => (
               <li key={index} className="header__nav-item">
                 <Link
                   to={item.path}
@@ -84,7 +115,7 @@ const Header = ({ isHomePage }) => {
           }`}
         >
           <ul className="header__mobile-nav-list">
-            {NAVIGATION_ITEMS.map((item, index) => (
+            {navigationItems.map((item, index) => (
               <li key={index} className="header__mobile-nav-item">
                 <Link
                   to={item.path}

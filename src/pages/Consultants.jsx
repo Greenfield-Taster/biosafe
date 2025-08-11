@@ -4,8 +4,10 @@ import "../styles/scss/Consultants.scss";
 const Consultants = () => {
   return (
     <div className="consultants">
-      <h1>Наші Консультанти</h1>
-      <p>Знайомтесь з нашими експертами</p>
+      <div className="consultants__container">
+        <h1>Наші Консультанти</h1>
+        <p>Знайомтесь з нашими експертами</p>
+      </div>
     </div>
   );
 };
