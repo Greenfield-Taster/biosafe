@@ -1,4 +1,5 @@
 @use "../variables" as v;
+@use "sass:color";
 
 .home {
   position: relative;
@@ -234,7 +235,7 @@
     background: linear-gradient(
       135deg,
       v.$biosafe-dark 0%,
-      darken(v.$biosafe-dark, 10%) 100%
+      color.adjust(v.$biosafe-dark, $lightness: -10%) 100%
     );
     margin-left: auto;
     margin-right: 0;
@@ -268,7 +269,7 @@
     background: linear-gradient(
       135deg,
       v.$biosafe-light 0%,
-      lighten(v.$biosafe-light, 3%) 100%
+      color.adjust(v.$biosafe-light, $lightness: 3%) 100%
     );
     margin-left: 0;
     margin-right: auto;
@@ -286,7 +287,7 @@
       background: linear-gradient(
         45deg,
         v.$biosafe-dark,
-        lighten(v.$biosafe-dark, 15%)
+        color.adjust(v.$biosafe-dark, $lightness: 15%)
       );
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -294,7 +295,7 @@
     }
 
     p {
-      color: darken(v.$biosafe-dark, 5%);
+      color: color.adjust(v.$biosafe-dark, $lightness: -5%);
     }
   }
 }
