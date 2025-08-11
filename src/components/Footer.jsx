@@ -26,15 +26,13 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer__container">
-        <div className="footer__about">
+        <div className="footer__logo-column">
           <div className="footer__logo">
             <img src={logo} alt="Biosafe" />
           </div>
-          <p>
-            Провідний постачальник послуг діагностики тварин та досліджень, що
-            спеціалізується на бактеріологічній діагностиці та рішеннях з
-            біобезпеки.
-          </p>
+        </div>
+
+        <div className="footer__contact-column">
           <div className="footer__contact">
             <div className="footer__contact-item">
               <span>📞</span>
@@ -47,36 +45,14 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="footer__links">
-          <div className="footer__column">
-            <h4>Послуги</h4>
-            <ul>
-              <li>
-                <Link to="/consulting">Лабораторний консалтинг</Link>
-              </li>
-              <li>
-                <Link to="/diagnostics">Діагностика</Link>
-              </li>
-              <li>
-                <Link to="/consultants">Експерти-консультанти</Link>
-              </li>
-              <li>
-                <Link to="/request-consultation">Замовити консультацію</Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className="footer__column">
-            <h4>Підтримка</h4>
+        <div className="footer__links-column">
+          <div className="footer__links">
             <ul>
               <li>
                 <Link to="/help">Центр допомоги</Link>
               </li>
               <li>
                 <Link to="/contact">Зв'язатися з нами</Link>
-              </li>
-              <li>
-                <Link to="/request-consultation">Замовити консультацію</Link>
               </li>
             </ul>
           </div>

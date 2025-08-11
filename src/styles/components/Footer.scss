@@ -34,57 +34,49 @@
     margin: 0 auto;
     padding: 0 v.$spacing-8;
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: v.$spacing-20;
-    align-items: start;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: v.$spacing-8;
+    align-items: center;
     position: relative;
     z-index: 1;
   }
 
-  &__about {
-    max-width: 450px;
+  // Колонка с логотипом
+  &__logo-column {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
 
-    .footer__logo {
-      display: flex;
-      align-items: center;
-      gap: v.$spacing-3;
-      margin-bottom: v.$spacing-6;
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: v.$spacing-3;
+    cursor: pointer;
 
-      img {
-        width: 190px;
-        transition: transform v.$transition-normal;
+    img {
+      height: auto;
+      width: 70%;
+      transition: transform v.$transition-normal;
 
-        &:hover {
-          transform: scale(1.02);
-        }
-      }
-
-      span {
-        font-size: v.$font-size-2xl;
-        font-weight: v.$font-weight-semibold;
-        color: v.$primary-color;
-        font-family: v.$font-family-display;
+      &:hover {
+        transform: scale(1.02);
       }
     }
 
-    p {
-      font-size: v.$font-size-base;
-      line-height: v.$line-height-relaxed;
-      color: v.$text-secondary;
-      margin-bottom: v.$spacing-10;
-      position: relative;
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: -(v.$spacing-4);
-        left: 0;
-        width: 60px;
-        height: 2px;
-        background: linear-gradient(90deg, v.$primary-color, v.$accent-color);
-        border-radius: 2px;
-      }
+    span {
+      font-size: v.$font-size-2xl;
+      font-weight: v.$font-weight-semibold;
+      color: v.$primary-color;
+      font-family: v.$font-family-display;
     }
+  }
+
+  // Колонка с контактами
+  &__contact-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__contact {
@@ -98,15 +90,13 @@
       gap: v.$spacing-3;
       font-size: v.$font-size-base;
       color: v.$text-secondary;
-      padding: v.$spacing-2 0;
+      padding: v.$spacing-3 v.$spacing-6;
       transition: all v.$transition-normal;
       border-radius: v.$border-radius-md;
 
       &:hover {
         color: v.$primary-color;
         background: rgba(43, 93, 107, 0.05);
-        padding-left: v.$spacing-2;
-        transform: translateX(4px);
       }
 
       span:first-child {
@@ -130,37 +120,16 @@
     }
   }
 
-  &__links {
+  // Колонка со ссылками
+  &__links-column {
     display: flex;
-    gap: v.$spacing-20;
+    justify-content: flex-end;
+    align-items: center;
   }
 
-  &__column {
-    h4 {
-      font-size: v.$font-size-lg;
-      font-weight: v.$font-weight-semibold;
-      color: v.$text-primary;
-      margin-bottom: v.$spacing-8;
-      font-family: v.$font-family-display;
-      position: relative;
-      padding-bottom: v.$spacing-2;
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 30px;
-        height: 2px;
-        background: v.$accent-color;
-        border-radius: 2px;
-        transition: width v.$transition-normal;
-      }
-
-      &:hover::after {
-        width: 50px;
-      }
-    }
+  &__links {
+    display: flex;
+    justify-content: center;
 
     ul {
       list-style: none;
@@ -168,7 +137,8 @@
       margin: 0;
       display: flex;
       flex-direction: column;
-      gap: v.$spacing-3;
+      gap: v.$spacing-4;
+      text-align: center;
 
       li {
         a {
@@ -176,30 +146,19 @@
           color: v.$text-secondary;
           text-decoration: none;
           transition: all v.$transition-normal;
-          padding: v.$spacing-1 0;
-          border-radius: v.$border-radius-sm;
+          padding: v.$spacing-3 v.$spacing-6;
+          border-radius: v.$border-radius-md;
           position: relative;
           display: inline-block;
-
-          &::before {
-            content: "";
-            position: absolute;
-            left: -(v.$spacing-4);
-            top: 50%;
-            transform: translateY(-50%);
-            width: 0;
-            height: 2px;
-            background: v.$primary-color;
-            transition: width v.$transition-normal;
-          }
+          background: rgba(43, 93, 107, 0.05);
+          border: 1px solid transparent;
 
           &:hover {
-            color: v.$primary-color;
-            transform: translateX(6px);
-
-            &::before {
-              width: 12px;
-            }
+            color: v.$white;
+            background: v.$primary-color;
+            border-color: v.$primary-color;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(43, 93, 107, 0.2);
           }
         }
       }
@@ -285,41 +244,15 @@
 
     &__container {
       grid-template-columns: 1fr;
-      gap: v.$spacing-12;
+      gap: v.$spacing-8;
       padding: 0 v.$container-padding;
-    }
-
-    &__about {
-      max-width: none;
       text-align: center;
-
-      p::after {
-        left: 50%;
-        transform: translateX(-50%);
-      }
     }
 
-    &__links {
+    &__logo-column,
+    &__contact-column,
+    &__links-column {
       justify-content: center;
-      gap: v.$spacing-16;
-    }
-
-    &__column {
-      h4::after {
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
-      ul li a {
-        &::before {
-          left: 50%;
-          transform: translateX(-50%) translateY(-50%);
-        }
-
-        &:hover {
-          transform: translateY(-2px);
-        }
-      }
     }
 
     &__bottom {
@@ -339,32 +272,17 @@
     padding: v.$spacing-8 0 v.$spacing-4;
 
     &__container {
-      gap: v.$spacing-8;
+      gap: v.$spacing-6;
       padding: 0 v.$spacing-3;
     }
 
-    &__about {
-      .footer__logo {
-        justify-content: center;
-        margin-bottom: v.$spacing-5;
-
-        img {
-          width: 150px;
-        }
-
-        span {
-          font-size: v.$font-size-lg;
-        }
-      }
-
-      p {
-        font-size: v.$font-size-sm;
-        margin-bottom: v.$spacing-6;
+    &__logo {
+      img {
+        width: 150px;
       }
     }
 
     &__contact {
-      align-items: center;
       gap: v.$spacing-3;
 
       &-item {
@@ -377,22 +295,12 @@
     }
 
     &__links {
-      flex-direction: column;
-      gap: v.$spacing-8;
-      text-align: center;
-    }
-
-    &__column {
-      h4 {
-        font-size: v.$font-size-base;
-        margin-bottom: v.$spacing-4;
-      }
-
       ul {
         gap: v.$spacing-2;
 
         li a {
           font-size: v.$font-size-sm;
+          padding: v.$spacing-2;
         }
       }
     }
@@ -419,26 +327,13 @@
     padding: v.$spacing-6 0 v.$spacing-3;
 
     &__container {
-      gap: v.$spacing-6;
+      gap: v.$spacing-4;
       padding: 0 v.$spacing-2;
     }
 
-    &__about {
-      .footer__logo {
-        margin-bottom: v.$spacing-4;
-
-        img {
-          width: 120px;
-        }
-
-        span {
-          font-size: v.$font-size-base;
-        }
-      }
-
-      p {
-        font-size: v.$font-size-xs;
-        margin-bottom: v.$spacing-5;
+    &__logo {
+      img {
+        width: 120px;
       }
     }
 
@@ -457,20 +352,12 @@
     }
 
     &__links {
-      gap: v.$spacing-6;
-    }
-
-    &__column {
-      h4 {
-        font-size: v.$font-size-sm;
-        margin-bottom: v.$spacing-3;
-      }
-
       ul {
         gap: v.$spacing-1;
 
         li a {
           font-size: v.$font-size-xs;
+          padding: v.$spacing-1 v.$spacing-2;
         }
       }
     }
