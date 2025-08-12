@@ -6,14 +6,14 @@ import "../styles/components/Footer.scss";
 const Footer = () => {
   const [showFooter, setShowFooter] = useState(true);
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     if (isHomePage) {
       setShowFooter(false);
       const timer = setTimeout(() => {
         setShowFooter(true);
-      }, 6000);
+      }, 2600);
       return () => clearTimeout(timer);
     } else {
       setShowFooter(true);

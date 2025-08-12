@@ -41,7 +41,7 @@
       margin: 0;
       letter-spacing: 0.1em;
       text-shadow: 0 2px 4px rgba(43, 93, 107, 0.1);
-      animation: pulse 2s ease-in-out;
+      animation: pulse 1.2s ease-in-out;
     }
   }
 
@@ -57,7 +57,7 @@
     .images-container {
       width: 100%;
       height: 100%;
-      transition: filter 1s ease-out;
+      transition: filter 0.6s ease-out; // Плавный блюр одновременно с анимацией текста
 
       &.blur-images {
         filter: blur(5px);
@@ -101,11 +101,11 @@
     &.animate {
       .lab-half {
         &.lab-left {
-          animation: slideInDiagonalLeft 1.5s ease-out forwards;
+          animation: slideInDiagonalLeft 1.3s ease-out forwards; // Ускоряем с 1.5s до 1.3s
         }
 
         &.lab-right {
-          animation: slideInDiagonalRight 1.5s ease-out forwards;
+          animation: slideInDiagonalRight 1.3s ease-out forwards; // Ускоряем с 1.5s до 1.3s
         }
       }
     }
@@ -119,7 +119,7 @@
       bottom: 0;
       z-index: 70;
       opacity: 0;
-      transition: opacity 1s ease-in-out;
+      transition: opacity 0.4s ease-in-out; // Плавное появление на фоне движущихся фото
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -251,7 +251,7 @@
   );
   min-height: 30vh;
   opacity: 0;
-  transition: opacity 0.8s ease-in-out;
+  transition: opacity 0.4s ease-in-out; // Плавное появление
 
   position: relative;
   z-index: 50;
@@ -276,9 +276,9 @@
   padding: 8rem 4rem 12rem;
   position: relative;
   text-align: center;
-  opacity: 0;
-  animation: fadeInUp 1.5s ease-out forwards;
-  animation-delay: 0.8s;
+  opacity: 1; // Убираем анимацию появления - сразу видимый
+  // animation: fadeInUp 1.5s ease-out forwards;
+  // animation-delay: 0.8s;
   overflow: hidden;
 
   // Четкая линия только снизу
@@ -582,5 +582,25 @@
       min-width: 220px;
       max-width: calc(100% - 4rem);
     }
+  }
+}
+
+// Дополнительные стили для блокировки прокрутки
+.home {
+  // Индикатор загрузки для пользователя
+  &.loading {
+    cursor: wait;
+    
+    * {
+      pointer-events: none;
+    }
+  }
+  
+  // Отключаем выделение текста во время анимации
+  .fullscreen-animation {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }

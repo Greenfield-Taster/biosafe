@@ -22,7 +22,7 @@ const Header = ({ isHomePage }) => {
     if (isHomePage) {
       const timer = setTimeout(() => {
         setShowHeader(true);
-      }, 3800);
+      }, 2000);
       return () => clearTimeout(timer);
     } else {
       setShowHeader(true);
@@ -30,21 +30,28 @@ const Header = ({ isHomePage }) => {
   }, [isHomePage]);
 
   // Проверяем, находимся ли мы на странице консалтинга или её подстраницах
-  const isConsultingPage = location.pathname.startsWith('/consulting');
+  const isConsultingPage = location.pathname.startsWith("/consulting");
 
   // Создаем расширенную навигацию для страницы консалтинга
   const getNavigationItems = () => {
     if (isConsultingPage) {
       // Находим индекс элемента "Консалтинг"
-      const consultingIndex = NAVIGATION_ITEMS.findIndex(item => item.path === '/consulting');
-      
+      const consultingIndex = NAVIGATION_ITEMS.findIndex(
+        (item) => item.path === "/consulting"
+      );
+
       // Создаем новый массив с вставкой подстраниц после консалтинга
       const newItems = [...NAVIGATION_ITEMS];
-      newItems.splice(consultingIndex + 1, 0, 
-        { path: '/consulting/consultants', name: "Консультанти" },
-        { path: '/consulting/request-consultation', name: "Замовити консультацію" }
+      newItems.splice(
+        consultingIndex + 1,
+        0,
+        { path: "/consulting/consultants", name: "Консультанти" },
+        {
+          path: "/consulting/request-consultation",
+          name: "Замовити консультацію",
+        }
       );
-      
+
       return newItems;
     }
     return NAVIGATION_ITEMS;

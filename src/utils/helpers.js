@@ -43,3 +43,34 @@ export const scrollToElement = (elementId, offset = 0) => {
     });
   }
 };
+
+// Предотвращение прокрутки во время анимации
+export const preventScrollDuringAnimation = (isAnimating) => {
+  const preventScroll = (e) => {
+    if (isAnimating) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+  };
+  
+  const preventKeyScroll = (e) => {
+    // Клавиши: Space, PageUp, PageDown, End, Home, стрелки
+    if (isAnimating && [32, 33, 34, 35, 36, 37, 38, 39, 40].includes(e.keyCode)) {
+      e.preventDefault();
+      return false;
+    }
+  };
+
+  if (isAnimating) {
+    window.addEventListener('wheel', preventScroll, { passive: false });
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+    window.addEventListener('keydown', preventKeyScroll, false);
+  } else {
+    window.removeEventListener('wheel', preventScroll);
+    window.removeEventListener('touchmove', preventScroll);
+    window.removeEventListener('keydown', preventKeyScroll);
+  }
+  
+  return { preventScroll, preventKeyScroll };
+};

@@ -102,3 +102,22 @@ h6 {
   overflow-x: hidden;
   max-width: 100%;
 }
+
+// Класс для блокировки прокрутки во время анимации
+body.scroll-blocked {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+// Дополнительная защита для мобильных устройств
+body.scroll-blocked {
+  -webkit-overflow-scrolling: touch;
+  touch-action: none;
+}
+
+// Плавная прокрутка к началу страницы
+html {
+  scroll-behavior: smooth;
+}
