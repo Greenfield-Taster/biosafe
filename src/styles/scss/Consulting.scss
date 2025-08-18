@@ -18,7 +18,7 @@
     overflow: hidden;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 50%;
@@ -26,8 +26,8 @@
       width: 200%;
       height: 100%;
       background: linear-gradient(
-        135deg, 
-        rgba(v.$primary-color, 0.03) 0%, 
+        135deg,
+        rgba(v.$primary-color, 0.03) 0%,
         rgba(v.$accent-color, 0.02) 100%
       );
       z-index: 0;
@@ -54,7 +54,11 @@
   &__title-accent {
     width: 80px;
     height: 4px;
-    background: linear-gradient(90deg, v.$accent-color 0%, v.$accent-light 100%);
+    background: linear-gradient(
+      90deg,
+      v.$accent-color 0%,
+      v.$accent-light 100%
+    );
     margin: 0 auto;
     border-radius: v.$border-radius-full;
   }
@@ -69,82 +73,55 @@
 
   // Mission Section - Special slogan styling
   &__mission-section {
-    margin: v.$spacing-20 0;
-    padding: v.$spacing-16 0;
+    padding: v.$spacing-12 0;
     position: relative;
-    
-    // Decorative lines above and below
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 300px;
-      height: 3px;
-      background: linear-gradient(
-        90deg, 
-        transparent 0%, 
-        v.$accent-color 20%, 
-        v.$primary-color 50%, 
-        v.$accent-color 80%, 
-        transparent 100%
-      );
-      border-radius: v.$border-radius-full;
-    }
-    
-    &::before {
-      top: 0;
-      animation: shimmer 3s ease-in-out infinite;
-    }
-    
-    &::after {
-      bottom: 0;
-      animation: shimmer 3s ease-in-out infinite 1.5s;
-    }
-    
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+
     // Enhanced card styling for mission
     .consulting__text-card--final {
       background: linear-gradient(
-        135deg, 
-        rgba(v.$primary-color, 0.02) 0%, 
+        135deg,
+        rgba(v.$primary-color, 0.02) 0%,
         rgba(v.$accent-color, 0.02) 50%,
         rgba(v.$primary-color, 0.02) 100%
       );
       border: none;
-      box-shadow: 
-        0 20px 40px rgba(v.$primary-color, 0.1),
-        0 0 0 1px rgba(v.$accent-color, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
-      transform: scale(1.05);
-      padding: v.$spacing-12;
-      
+      box-shadow: 0 8px 16px rgba(v.$primary-color, 0.08),
+        0 0 0 1px rgba(v.$accent-color, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      transform: scale(1);
+      padding: v.$spacing-10;
+      margin: 0 auto;
+      max-width: calc(100% - v.$spacing-8);
+      width: 100%;
+      box-sizing: border-box;
+
       &:hover {
-        transform: scale(1.08) translateY(-12px);
-        box-shadow: 
-          0 30px 60px rgba(v.$primary-color, 0.15),
-          0 0 0 1px rgba(v.$accent-color, 0.3),
-          inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        transform: scale(1) translateY(-4px);
+        box-shadow: 0 12px 24px rgba(v.$primary-color, 0.12),
+          0 0 0 1px rgba(v.$accent-color, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.7);
       }
-      
+
       h2 {
         font-size: v.$font-size-3xl;
         font-weight: v.$font-weight-bold;
-        background: linear-gradient(135deg, v.$primary-color 0%, v.$accent-color 100%);
+        background: linear-gradient(
+          135deg,
+          v.$primary-color 0%,
+          v.$accent-color 100%
+        );
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         margin-bottom: v.$spacing-6;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        
-        &::after {
-          width: 60px;
-          height: 4px;
-          background: linear-gradient(90deg, v.$accent-color, v.$primary-color);
-          box-shadow: 0 2px 8px rgba(v.$accent-color, 0.3);
-        }
       }
-      
+
       p {
         font-size: v.$font-size-xl;
         font-weight: v.$font-weight-medium;
@@ -153,35 +130,37 @@
         text-align: center;
         font-style: italic;
         position: relative;
-        
+        padding: 0 v.$spacing-6;
+        margin: 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+
         &::before,
         &::after {
           content: '"';
-          font-size: v.$font-size-3xl;
+          font-size: v.$font-size-2xl;
           color: v.$accent-color;
           font-weight: v.$font-weight-bold;
           opacity: 0.6;
+          position: absolute;
         }
-        
+
         &::before {
-          position: absolute;
-          left: -20px;
-          top: -10px;
+          left: 0;
+          top: 0;
         }
-        
+
         &::after {
-          position: absolute;
-          right: -20px;
-          bottom: -20px;
+          right: 0;
+          bottom: 0;
           transform: rotate(180deg);
         }
       }
-      
+
       .consulting__geometric-element--diamond,
       .consulting__geometric-element--square {
         background: linear-gradient(45deg, v.$accent-color, v.$primary-color);
-        box-shadow: 
-          0 8px 16px rgba(v.$primary-color, 0.2),
+        box-shadow: 0 8px 16px rgba(v.$primary-color, 0.2),
           0 0 20px rgba(v.$accent-color, 0.3);
       }
     }
@@ -196,7 +175,7 @@
     box-shadow: v.$shadow-lg;
     overflow: hidden;
     transition: all v.$transition-normal;
-    
+
     &:hover {
       transform: translateY(-8px);
       box-shadow: v.$shadow-xl;
@@ -226,11 +205,11 @@
         text-align: right;
         order: 1;
       }
-      
+
       .consulting__text-card-icon {
         order: 3;
       }
-      
+
       .consulting__geometric-element {
         order: 0;
       }
@@ -249,14 +228,15 @@
     }
 
     &--final {
-      display: grid;
-      grid-template-columns: 60px 1fr 60px;
-      gap: v.$spacing-6;
       align-items: center;
       text-align: center;
       border: 4px solid;
       border-image: linear-gradient(45deg, v.$primary-color, v.$accent-color) 1;
-      background: linear-gradient(135deg, rgba(v.$primary-color, 0.02) 0%, rgba(v.$accent-color, 0.02) 100%);
+      background: linear-gradient(
+        135deg,
+        rgba(v.$primary-color, 0.02) 0%,
+        rgba(v.$accent-color, 0.02) 100%
+      );
 
       .consulting__text-content {
         &--centered {
@@ -272,17 +252,6 @@
       color: v.$primary-color;
       margin-bottom: v.$spacing-4;
       position: relative;
-
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: -8px;
-        left: 0;
-        width: 40px;
-        height: 3px;
-        background: v.$accent-color;
-        border-radius: v.$border-radius-full;
-      }
 
       .consulting__text-card--secondary &::after,
       .consulting__text-card--final &::after {
@@ -307,9 +276,9 @@
         color: v.$primary-color;
         font-weight: v.$font-weight-semibold;
         position: relative;
-        
+
         &::after {
-          content: '';
+          content: "";
           position: absolute;
           bottom: 2px;
           left: 0;
@@ -335,9 +304,9 @@
     box-shadow: v.$shadow-md;
     transition: all v.$transition-normal;
     position: relative;
-    
+
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       inset: -3px;
       background: linear-gradient(135deg, v.$accent-color, v.$primary-color);
@@ -354,12 +323,7 @@
     }
 
     .consulting__text-card:hover & {
-      transform: rotate(360deg) scale(1.1);
-      
-      &::before {
-        opacity: 1;
-        transform: scale(1.2);
-      }
+      transform: rotate(360deg);
     }
   }
 
@@ -367,7 +331,7 @@
   &__geometric-element {
     position: relative;
     transition: all v.$transition-slow;
-    
+
     .consulting__text-card:hover & {
       transform: rotate(180deg);
     }
@@ -395,24 +359,29 @@
       background: v.$medical-blue;
       position: relative;
       margin: 20px 0;
-      
+      display: block;
+
       &::before,
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         width: 0;
         border-left: 20px solid transparent;
         border-right: 20px solid transparent;
       }
-      
+
       &::before {
         bottom: 100%;
         border-bottom: 10px solid v.$medical-blue;
+        left: 50%;
+        transform: translateX(-50%);
       }
-      
+
       &::after {
         top: 100%;
         border-top: 10px solid v.$medical-blue;
+        left: 50%;
+        transform: translateX(-50%);
       }
     }
 
@@ -455,13 +424,17 @@
     overflow: hidden;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       height: 3px;
-      background: linear-gradient(90deg, v.$primary-color 0%, v.$accent-color 100%);
+      background: linear-gradient(
+        90deg,
+        v.$primary-color 0%,
+        v.$accent-color 100%
+      );
     }
 
     &:hover {
@@ -508,13 +481,17 @@
     overflow: hidden;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       height: 4px;
-      background: linear-gradient(90deg, v.$primary-color 0%, v.$accent-color 100%);
+      background: linear-gradient(
+        90deg,
+        v.$primary-color 0%,
+        v.$accent-color 100%
+      );
     }
 
     &-content {
@@ -626,43 +603,46 @@
 
     // Mission section responsive
     &__mission-section {
-      margin: v.$spacing-16 0;
-      padding: v.$spacing-12 0;
-      
-      &::before,
-      &::after {
-        width: 200px;
-        height: 2px;
-      }
-      
+      margin: v.$spacing-8 0;
+      padding: v.$spacing-6 0;
+
       .consulting__text-card--final {
         transform: scale(1) !important;
-        padding: v.$spacing-8;
-        
+        padding: v.$spacing-6;
+        margin: 0 auto;
+        max-width: calc(100% - v.$spacing-4);
+        box-shadow: 0 4px 8px rgba(v.$primary-color, 0.06),
+          0 0 0 1px rgba(v.$accent-color, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.5);
+
         &:hover {
-          transform: scale(1.02) translateY(-8px) !important;
+          transform: scale(1) translateY(-2px) !important;
+          box-shadow: 0 6px 12px rgba(v.$primary-color, 0.08),
+            0 0 0 1px rgba(v.$accent-color, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.6);
         }
-        
+
         h2 {
           font-size: v.$font-size-2xl;
         }
-        
+
         p {
           font-size: v.$font-size-lg;
-          
+          padding: 0 v.$spacing-4;
+
           &::before,
           &::after {
-            font-size: v.$font-size-2xl;
+            font-size: v.$font-size-xl;
           }
-          
+
           &::before {
-            left: -15px;
-            top: -8px;
+            left: 0;
+            top: 0;
           }
-          
+
           &::after {
-            right: -15px;
-            bottom: -15px;
+            right: 0;
+            bottom: 0;
           }
         }
       }
@@ -670,7 +650,7 @@
 
     &__text-card {
       padding: v.$spacing-6;
-      
+
       &--primary,
       &--secondary,
       &--tertiary,
@@ -680,25 +660,66 @@
         gap: v.$spacing-4;
         text-align: center;
         border: none;
-        border-top: 4px solid v.$primary-color;
+        align-items: center;
+        position: relative;
+
+        // Цветные полоски сверху блоков
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 6px;
+          border-radius: v.$border-radius-lg v.$border-radius-lg 0 0;
+        }
       }
 
-      &--secondary {
-        border-top-color: v.$accent-color;
+      &--primary::before {
+        background: linear-gradient(
+          90deg,
+          v.$primary-color 0%,
+          v.$accent-color 100%
+        );
       }
 
-      &--tertiary {
-        border-top-color: v.$medical-blue;
+      &--secondary::before {
+        background: linear-gradient(
+          90deg,
+          v.$accent-color 0%,
+          v.$primary-color 100%
+        );
       }
 
-      &--final {
-        border: 4px solid;
-        border-image: linear-gradient(45deg, v.$primary-color, v.$accent-color) 1;
+      &--tertiary::before {
+        background: linear-gradient(
+          90deg,
+          v.$medical-blue 0%,
+          v.$accent-color 100%
+        );
+      }
+
+      &--final::before {
+        background: linear-gradient(
+          90deg,
+          v.$primary-color 0%,
+          v.$accent-color 50%,
+          v.$primary-color 100%
+        );
       }
 
       .consulting__text-content {
         text-align: center !important;
         order: 0 !important;
+      }
+
+      .consulting__text-card-icon {
+        order: 1;
+        margin: 0 auto;
+      }
+
+      .consulting__geometric-element {
+        display: none !important;
       }
 
       h2::after {
@@ -745,29 +766,46 @@
 
     // Mission section for small screens
     &__mission-section {
-      margin: v.$spacing-12 0;
-      padding: v.$spacing-8 0;
-      
-      &::before,
-      &::after {
-        width: 150px;
-        height: 2px;
-      }
-      
+      margin: v.$spacing-6 0;
+      padding: v.$spacing-4 0;
+
       .consulting__text-card--final {
-        padding: v.$spacing-6;
-        
+        padding: v.$spacing-4;
+        margin: 0 auto;
+        max-width: calc(100% - v.$spacing-2);
+        box-shadow: 0 2px 4px rgba(v.$primary-color, 0.04),
+          0 0 0 1px rgba(v.$accent-color, 0.08),
+          inset 0 1px 0 rgba(255, 255, 255, 0.4);
+
+        &:hover {
+          transform: scale(1) translateY(-1px) !important;
+          box-shadow: 0 3px 6px rgba(v.$primary-color, 0.06),
+            0 0 0 1px rgba(v.$accent-color, 0.12),
+            inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
         h2 {
           font-size: v.$font-size-xl;
         }
-        
+
         p {
           font-size: v.$font-size-base;
-          font-style: normal;
-          
+          font-style: italic;
+          padding: 0 v.$spacing-2;
+
           &::before,
           &::after {
-            display: none; // Hide quotes on small screens for cleaner look
+            font-size: v.$font-size-lg;
+          }
+
+          &::before {
+            left: 0;
+            top: 0;
+          }
+
+          &::after {
+            right: 0;
+            bottom: 0;
           }
         }
       }
@@ -838,7 +876,8 @@
 }
 
 .consulting__text-card:nth-child(2) {
-  animation: slideInRight 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+  animation: slideInRight 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s
+    forwards;
   opacity: 0;
 }
 
@@ -873,7 +912,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -883,10 +923,20 @@
 
 .consulting__geometric-element {
   animation: pulse 3s ease-in-out infinite;
+
+  // Отключаем анимации на мобильных устройствах
+  @media (max-width: v.$breakpoint-md) {
+    animation: none;
+  }
 }
 
 .consulting__geometric-element--triangle {
   animation: rotate 10s linear infinite;
+
+  // Отключаем анимации на мобильных устройствах
+  @media (max-width: v.$breakpoint-md) {
+    animation: none;
+  }
 }
 
 // Shimmer animation for mission section decorative lines
@@ -908,7 +958,8 @@
 // Special animation for mission section
 .consulting__mission-section {
   .consulting__text-card--final {
-    animation: missionGlow 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards;
+    animation: missionGlow 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s
+      forwards;
     opacity: 0;
   }
 }
@@ -916,10 +967,10 @@
 @keyframes missionGlow {
   from {
     opacity: 0;
-    transform: scale(0.95) translateY(30px);
+    transform: scale(1) translateY(20px);
   }
   to {
     opacity: 1;
-    transform: scale(1.05) translateY(0);
+    transform: scale(1) translateY(0);
   }
 }

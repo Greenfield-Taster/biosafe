@@ -111,7 +111,6 @@ const ConsultingMain = () => {
         {/* Final Text Block - Mission - Special Slogan Section */}
         <div className="consulting__mission-section">
           <div className="consulting__text-card consulting__text-card--final">
-            <div className="consulting__geometric-element consulting__geometric-element--diamond"></div>
             <div className="consulting__text-content consulting__text-content--centered">
               <h2>Наша місія</h2>
               <p>
@@ -120,7 +119,6 @@ const ConsultingMain = () => {
                 стандартам якості.
               </p>
             </div>
-            <div className="consulting__geometric-element consulting__geometric-element--square"></div>
           </div>
         </div>
 
