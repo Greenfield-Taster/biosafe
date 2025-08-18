@@ -6,7 +6,7 @@ import scrollManager from "../utils/scrollManager";
 import "../styles/scss/Home.scss";
 
 const Home = () => {
-  const [showTitle, setShowTitle] = useState(true);
+  const [showTitle, setShowTitle] = useState(false);
   const [animationStarted, setAnimationStarted] = useState(false);
   const [showOverlayText, setShowOverlayText] = useState(false);
   const [showPageContent, setShowPageContent] = useState(false);
@@ -14,91 +14,136 @@ const Home = () => {
   const homeRef = useRef(null);
 
   useEffect(() => {
+    const isMobile = window.innerWidth <= 768;
+
     // Сразу прокручиваем в начало страницы при загрузке
     scrollManager.scrollToTop(false);
 
     // Добавляем класс home-page к body
     document.body.classList.add("home-page");
 
-    // Блокируем прокрутку на время анимации
-    scrollManager.blockScroll();
+    if (isMobile) {
+      // МОБИЛЬНАЯ АНИМАЦИЯ
+      scrollManager.blockScroll();
 
-    // Дополнительная защита от прокрутки
-    const preventScroll = (e) => {
-      if (!animationComplete) {
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-      }
-    };
+      // 1. Показываем заголовок BIOSAFE сразу
+      setShowTitle(true);
 
-    const preventKeyScroll = (e) => {
-      if (
-        !animationComplete &&
-        [32, 33, 34, 35, 36, 37, 38, 39, 40].includes(e.keyCode)
-      ) {
-        e.preventDefault();
-        return false;
-      }
-    };
+      // 2. Через 1.5 сек начинаем анимацию фото
+      const startPhotoAnimation = setTimeout(() => {
+        setAnimationStarted(true);
+      }, 1500);
 
-    window.addEventListener("wheel", preventScroll, { passive: false });
-    window.addEventListener("touchmove", preventScroll, { passive: false });
-    window.addEventListener("keydown", preventKeyScroll, false);
+      // 3. Через 2 сек скрываем заголовок НАВСЕГДА
+      const hideTitle = setTimeout(() => {
+        setShowTitle(false);
+      }, 2000);
 
-    // ЧЕТКИЙ РАСЧЕТ ВРЕМЕНИ ДЛЯ КАЖДОГО ЭЛЕМЕНТА:
+      // 4. Через 3 сек показываем текст поверх фото
+      const showText = setTimeout(() => {
+        setShowOverlayText(true);
+      }, 3000);
 
-    // 1. Начало анимации фото через 600ms - раньше!
-    const startPhotoAnimation = setTimeout(() => {
-      setAnimationStarted(true);
-    }, 600);
+      // 5. Через 4 сек показываем контент и разрешаем скролл
+      const showContent = setTimeout(() => {
+        setShowPageContent(true);
+        setAnimationComplete(true);
+        scrollManager.unblockScroll();
+      }, 4000);
 
-    // 2. Скрытие заголовка BIOSAFE через 650ms
-    const hideTitle = setTimeout(() => {
-      setShowTitle(false);
-    }, 650);
+      return () => {
+        clearTimeout(startPhotoAnimation);
+        clearTimeout(hideTitle);
+        clearTimeout(showText);
+        clearTimeout(showContent);
+        document.body.classList.remove("home-page");
+        scrollManager.unblockScroll();
+      };
+    } else {
+      // ДЕСКТОПНАЯ АНИМАЦИЯ
+      scrollManager.blockScroll();
 
-    // 3. Разблокировка скролла через 1250ms (еще раньше!)
-    const unlockScroll = setTimeout(() => {
-      setAnimationComplete(true);
-      scrollManager.unblockScroll();
-    }, 1250);
+      // Показываем заголовок сразу на десктопе
+      setShowTitle(true);
 
-    // 4. Появление текста через 1300ms - ЕЩЕ БЫСТРЕЕ! (на половине анимации фото)
-    const showText = setTimeout(() => {
-      setShowOverlayText(true);
-    }, 1230);
+      // Дополнительная защита от прокрутки
+      const preventScroll = (e) => {
+        if (!animationComplete) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+      };
 
-    // 5. Появление контента страницы через 1300ms
-    const showContent = setTimeout(() => {
-      setShowPageContent(true);
-    }, 1230);
+      const preventKeyScroll = (e) => {
+        if (
+          !animationComplete &&
+          [32, 33, 34, 35, 36, 37, 38, 39, 40].includes(e.keyCode)
+        ) {
+          e.preventDefault();
+          return false;
+        }
+      };
 
-    // Очистка при размонтировании
-    return () => {
-      clearTimeout(startPhotoAnimation);
-      clearTimeout(hideTitle);
-      clearTimeout(unlockScroll);
-      clearTimeout(showText);
-      clearTimeout(showContent);
+      window.addEventListener("wheel", preventScroll, { passive: false });
+      window.addEventListener("touchmove", preventScroll, { passive: false });
+      window.addEventListener("keydown", preventKeyScroll, false);
 
-      window.removeEventListener("wheel", preventScroll);
-      window.removeEventListener("touchmove", preventScroll);
-      window.removeEventListener("keydown", preventKeyScroll);
+      // Тайминги для десктопа
+      const startPhotoAnimation = setTimeout(() => {
+        setAnimationStarted(true);
+      }, 600);
 
-      document.body.classList.remove("home-page");
-      scrollManager.unblockScroll();
-    };
-  }, [animationComplete]);
+      const hideTitle = setTimeout(() => {
+        setShowTitle(false);
+      }, 650);
+
+      const unlockScroll = setTimeout(() => {
+        setAnimationComplete(true);
+        scrollManager.unblockScroll();
+        // ВАЖНО: Удаляем обработчики событий после разблокировки
+        window.removeEventListener("wheel", preventScroll);
+        window.removeEventListener("touchmove", preventScroll);
+        window.removeEventListener("keydown", preventKeyScroll);
+      }, 1250);
+
+      const showText = setTimeout(() => {
+        setShowOverlayText(true);
+      }, 1230);
+
+      const showContent = setTimeout(() => {
+        setShowPageContent(true);
+      }, 1230);
+
+      return () => {
+        clearTimeout(startPhotoAnimation);
+        clearTimeout(hideTitle);
+        clearTimeout(unlockScroll);
+        clearTimeout(showText);
+        clearTimeout(showContent);
+
+        window.removeEventListener("wheel", preventScroll);
+        window.removeEventListener("touchmove", preventScroll);
+        window.removeEventListener("keydown", preventKeyScroll);
+
+        document.body.classList.remove("home-page");
+        scrollManager.unblockScroll();
+      };
+    }
+  }, []); // Убираем зависимости чтобы useEffect выполнился только один раз
+
+  // Определяем мобильное устройство для рендера
+  const isMobile = window.innerWidth <= 768;
 
   return (
     <div className="home no-overflow" ref={homeRef}>
       {/* Первая секция - анимация */}
       <div className="fullscreen-animation">
-        {/* Заголовок BIOSAFE */}
-        <div className={`biosafe-title ${!showTitle ? "fade-out" : ""}`}>
-          <h1>BIOSAFE</h1>
-        </div>
+        {showTitle && (
+          <div className="biosafe-title">
+            <h1>BIOSAFE</h1>
+          </div>
+        )}
 
         <div
           className={`lab-animation-container ${
@@ -111,18 +156,25 @@ const Home = () => {
               showOverlayText ? "blur-images" : ""
             }`}
           >
-            {/* Левая часть диагонального разреза */}
-            <div className="lab-half lab-left">
-              <img src={labLeft} alt="Laboratory Left Part" />
-            </div>
-
-            {/* Правая часть диагонального разреза */}
-            <div className="lab-half lab-right">
-              <img src={labRight} alt="Laboratory Right Part" />
-            </div>
+            {isMobile ? (
+              // Мобильная версия - одно фото
+              <div className="mobile-photo">
+                <img src={labLeft} alt="Laboratory" />
+              </div>
+            ) : (
+              // Десктопная версия - диагональные половинки
+              <>
+                <div className="lab-half lab-left">
+                  <img src={labLeft} alt="Laboratory Left Part" />
+                </div>
+                <div className="lab-half lab-right">
+                  <img src={labRight} alt="Laboratory Right Part" />
+                </div>
+              </>
+            )}
           </div>
 
-          {/* Текст поверх картинок в верхней части */}
+          {/* Текст поверх картинок */}
           <div className={`overlay-text ${showOverlayText ? "show" : ""}`}>
             <div className="intro-text">
               <p>
@@ -185,7 +237,7 @@ const Home = () => {
 
       {/* Контент после анимации */}
       <div className={`page-content ${showPageContent ? "visible" : ""}`}>
-        {/* Лозунг компанії - повноширинный блок */}
+        {/* Лозунг компанії */}
         <div className="company-motto">
           <div className="motto-content">
             <h2>Ми працюємо для тих, хто цінує</h2>

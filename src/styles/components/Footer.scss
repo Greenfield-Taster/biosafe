@@ -51,6 +51,7 @@
   &__logo {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: v.$spacing-3;
     cursor: pointer;
 
@@ -353,7 +354,7 @@
 
     &__links {
       ul {
-        gap: v.$spacing-1;
+        gap: v.$spacing-3;
 
         li a {
           font-size: v.$font-size-xs;
