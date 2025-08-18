@@ -42,7 +42,7 @@ const Home = () => {
       // 4. Через 3 сек показываем текст поверх фото
       const showText = setTimeout(() => {
         setShowOverlayText(true);
-      }, 1500);
+      }, 1700);
 
       // 5. Через 4 сек показываем контент и разрешаем скролл
       const showContent = setTimeout(() => {
