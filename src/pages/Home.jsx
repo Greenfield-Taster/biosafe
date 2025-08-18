@@ -32,24 +32,24 @@ const Home = () => {
       // 2. Через 1.5 сек начинаем анимацию фото
       const startPhotoAnimation = setTimeout(() => {
         setAnimationStarted(true);
-      }, 1500);
+      }, 1200);
 
       // 3. Через 2 сек скрываем заголовок НАВСЕГДА
       const hideTitle = setTimeout(() => {
         setShowTitle(false);
-      }, 2000);
+      }, 1200);
 
       // 4. Через 3 сек показываем текст поверх фото
       const showText = setTimeout(() => {
         setShowOverlayText(true);
-      }, 3000);
+      }, 1500);
 
       // 5. Через 4 сек показываем контент и разрешаем скролл
       const showContent = setTimeout(() => {
         setShowPageContent(true);
         setAnimationComplete(true);
         scrollManager.unblockScroll();
-      }, 4000);
+      }, 1600);
 
       return () => {
         clearTimeout(startPhotoAnimation);
@@ -96,7 +96,7 @@ const Home = () => {
 
       const hideTitle = setTimeout(() => {
         setShowTitle(false);
-      }, 650);
+      }, 1300);
 
       const unlockScroll = setTimeout(() => {
         setAnimationComplete(true);

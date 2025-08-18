@@ -20,17 +20,15 @@ const Header = ({ isHomePage }) => {
   // Показываем хедер на главной странице
   useEffect(() => {
     const isMobile = window.innerWidth <= 768;
-    
+
     if (isHomePage) {
       if (isMobile) {
-        // На мобильных скрываем хедер сначала, показываем через 4 сек
         setShowHeader(false);
         const timer = setTimeout(() => {
           setShowHeader(true);
-        }, 4000);
+        }, 2000);
         return () => clearTimeout(timer);
       } else {
-        // На десктопе показываем через 2 секунды
         const timer = setTimeout(() => {
           setShowHeader(true);
         }, 2000);
