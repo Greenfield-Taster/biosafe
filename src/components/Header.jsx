@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/Logo-Biosafe.png";
 import "../styles/components/Header.scss";
@@ -16,6 +16,8 @@ const Header = ({ isHomePage }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showHeader, setShowHeader] = useState(!isHomePage);
   const location = useLocation();
+  const headerRef = useRef(null);
+  const mobileMenuRef = useRef(null);
 
   // Показываем хедер на главной странице
   useEffect(() => {
@@ -38,6 +40,37 @@ const Header = ({ isHomePage }) => {
       setShowHeader(true);
     }
   }, [isHomePage]);
+
+  // Закрытие мобильного меню при клике вне его области
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isMobileMenuOpen &&
+        headerRef.current &&
+        !headerRef.current.contains(event.target)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    const handleEscapeKey = (event) => {
+      if (event.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+      document.addEventListener('keydown', handleEscapeKey);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [isMobileMenuOpen]);
 
   // Проверяем, находимся ли мы на странице консалтинга или её подстраницах
   const isConsultingPage = location.pathname.startsWith("/consulting");
@@ -85,6 +118,7 @@ const Header = ({ isHomePage }) => {
 
   return (
     <header
+      ref={headerRef}
       className={`header ${
         isHomePage ? (showHeader ? "header--show" : "header--hidden") : ""
       }`}
@@ -116,7 +150,9 @@ const Header = ({ isHomePage }) => {
 
         {/* Mobile Menu Button */}
         <button
-          className="header__mobile-toggle"
+          className={`header__mobile-toggle ${
+            isMobileMenuOpen ? "header__mobile-toggle--open" : ""
+          }`}
           onClick={toggleMobileMenu}
           aria-label="Toggle mobile menu"
         >
@@ -127,6 +163,7 @@ const Header = ({ isHomePage }) => {
 
         {/* Mobile Navigation */}
         <nav
+          ref={mobileMenuRef}
           className={`header__mobile-nav ${
             isMobileMenuOpen ? "header__mobile-nav--open" : ""
           }`}
