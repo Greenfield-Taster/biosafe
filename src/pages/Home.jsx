@@ -242,9 +242,9 @@ const Home = () => {
           <div className="motto-content">
             <h2>Ми працюємо для тих, хто цінує</h2>
             <div className="values-list">
-              <span className="value-item">ефективність</span>
-              <span className="value-item">точність</span>
-              <span className="value-item">професійний розвиток</span>
+              <span className="value-item">ЕФЕКТИВНІСТЬ</span>
+              <span className="value-item">ТОЧНІСТЬ</span>
+              <span className="value-item">ПРОФЕСІЙНИЙ РОЗВИТОК</span>
             </div>
           </div>
         </div>

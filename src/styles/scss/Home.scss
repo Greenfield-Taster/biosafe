@@ -706,7 +706,7 @@
     .value-item {
       padding: 1rem 2rem;
       font-size: clamp(0.9rem, 3.5vw, 1rem);
-      width: fit-content;
+      width: 300px;
       min-width: 200px;
       max-width: calc(100% - 2rem);
     }
