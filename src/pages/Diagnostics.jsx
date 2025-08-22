@@ -1,4 +1,7 @@
 import React from "react";
+import antibodiesIcon from "../assets/images/antibodies.png";
+import microscopeIcon from "../assets/images/microscope.png";
+import petriDishIcon from "../assets/images/petriDish.png";
 import "../styles/scss/Diagnostics.scss";
 
 const Diagnostics = () => {
@@ -8,35 +11,28 @@ const Diagnostics = () => {
 
   const diagnosticServices = [
     {
-      title:
-        "ПЛР-діагностику збудників вірусних, бактеріальних та паразитарних інфекцій",
-      icon: "🧬",
+      title: "імунофлуоресцентні дослідження",
+      icon: antibodiesIcon,
     },
     {
-      title: "імунофлуоресцентні дослідження для виявлення антигенів і антитіл",
-      icon: "🔬",
+      title: "паразитологічні дослідження",
+      icon: microscopeIcon,
     },
     {
-      title: "паразитологічні методи",
-      icon: "🦠",
+      title: "бактеріологічні дослідження",
+      icon: petriDishIcon,
     },
     {
-      title:
-        "бактеріологічні дослідження з ідентифікацією збудників та визначенням антимікробної чутливості",
-      icon: "🧪",
+      title: "цитологічні дослідження",
+      icon: microscopeIcon,
     },
     {
-      title:
-        "мікологічну діагностику (включаючи дерматофіти, дріжджоподібні гриби, криптококи)",
-      icon: "🔬",
+      title: "мікологічні дослідження",
+      icon: petriDishIcon,
     },
     {
-      title: "цитологічні аналізи мазків із патологічного матеріалу",
-      icon: "📊",
-    },
-    {
-      title: "гістологічні дослідження тканин з морфологічною оцінкою",
-      icon: "🧬",
+      title: "гістологічні дослідження",
+      icon: microscopeIcon,
     },
   ];
 
@@ -69,7 +65,11 @@ const Diagnostics = () => {
           <div className="diagnostics__services-grid">
             {diagnosticServices.map((service, index) => (
               <div key={index} className="diagnostics__service-card">
-                <div className="diagnostics__service-icon">{service.icon}</div>
+                <img
+                  src={service.icon}
+                  alt={service.title}
+                  className="diagnostics__service-icon"
+                />
                 <p className="diagnostics__service-title">{service.title}</p>
               </div>
             ))}
