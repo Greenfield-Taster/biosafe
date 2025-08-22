@@ -9,19 +9,38 @@ const Contact = () => {
     lng: 35.17162322998047,
   };
 
-  // Функція для відкриття Google Maps
-  const openInGoogleMaps = () => {
-    const query = encodeURIComponent(officeLocation.address);
-    const url = `https://www.google.com/maps/search/?api=1&query=${query}`;
-    window.open(url, "_blank");
-  };
-
-  // Функція для відкриття в Maps додатку (мобільні)
   const openInMapsApp = () => {
     const query = encodeURIComponent(officeLocation.address);
-    const url = `maps://maps.google.com/maps?q=${query}`;
-    window.location.href = url;
+
+    // Спробуємо відкрити в нативному додатку Maps
+    if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+      // iOS - використовуємо Apple Maps або Google Maps
+      const appleMapsUrl = `maps://maps.apple.com/?q=${query}`;
+      const googleMapsUrl = `comgooglemaps://?q=${query}`;
+
+      // Спочатку пробуємо Google Maps, якщо не вдається - Apple Maps
+      window.location.href = googleMapsUrl;
+
+      // Fallback до Apple Maps через 1 секунду
+      setTimeout(() => {
+        window.location.href = appleMapsUrl;
+      }, 1000);
+    } else if (navigator.userAgent.match(/Android/i)) {
+      // Android - використовуємо Google Maps
+      const androidMapsUrl = `geo:${officeLocation.lat},${officeLocation.lng}?q=${query}`;
+      window.location.href = androidMapsUrl;
+    } else {
+      // Desktop - відкриваємо в браузері
+      const webUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
+      window.open(webUrl, "_blank");
+    }
   };
+
+  // Визначаємо текст кнопки залежно від пристрою
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const mapsButtonText = isMobile
+    ? "Відкрити в додатку Google Карта"
+    : "Відкрити в Google Карті";
 
   return (
     <div className="contact">
@@ -147,8 +166,12 @@ const Contact = () => {
                 <h3 className="contact__map-title">Наше розташування</h3>
                 <button
                   className="contact__map-button"
-                  onClick={openInGoogleMaps}
-                  title="Відкрити в Google Maps"
+                  onClick={openInMapsApp}
+                  title={
+                    isMobile
+                      ? "Відкрити в додатку Maps"
+                      : "Відкрити в Google Maps"
+                  }
                 >
                   <svg
                     width="16"
@@ -162,15 +185,15 @@ const Contact = () => {
                       fill="currentColor"
                     />
                   </svg>
-                  Відкрити в Google Maps
+                  {mapsButtonText}
                 </button>
               </div>
 
               <div className="contact__map-container">
                 <iframe
-                  src={`https://www.google.com/maps/embed/v1/place?key=&q=${encodeURIComponent(
+                  src={`https://maps.google.com/maps?width=100%25&height=400&hl=uk&q=${encodeURIComponent(
                     officeLocation.address
-                  )}&zoom=15&maptype=roadmap`}
+                  )}+(Biosafe)&t=&z=15&ie=UTF8&iwloc=near&output=embed`}
                   width="100%"
                   height="400"
                   style={{ border: 0 }}
@@ -214,7 +237,7 @@ const Contact = () => {
                     </p>
                     <button
                       className="contact__map-fallback-button"
-                      onClick={openInGoogleMaps}
+                      onClick={openInMapsApp}
                     >
                       Відкрити в Google Maps
                     </button>
