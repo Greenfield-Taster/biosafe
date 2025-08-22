@@ -4,8 +4,87 @@ import "../styles/scss/Contact.scss";
 const Contact = () => {
   return (
     <div className="contact">
-      <h1>Contact Page</h1>
-      <p>Зв'язатися з нами</p>
+      <div className="contact__container">
+        <div className="contact__content">
+          <h1 className="contact__title">Зв'яжіться з нами</h1>
+          
+          <div className="contact__grid">
+            {/* Контактна інформація */}
+            <div className="contact__info">
+              
+              {/* Головний офіс */}
+              <div className="contact__item">
+                <div className="contact__icon contact__icon--location">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div className="contact__details">
+                  <h3 className="contact__item-title">Головний офіс</h3>
+                  <p className="contact__item-text">вул. Святого Миколая, 57, Запоріжжя, 69002, Україна</p>
+                </div>
+              </div>
+
+              {/* Телефон */}
+              <div className="contact__item">
+                <div className="contact__icon contact__icon--phone">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div className="contact__details">
+                  <h3 className="contact__item-title">Телефон</h3>
+                  <p className="contact__item-text">Основний: +380 67 184 4044</p>
+                </div>
+              </div>
+
+              {/* Електронна пошта */}
+              <div className="contact__item">
+                <div className="contact__icon contact__icon--email">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div className="contact__details">
+                  <h3 className="contact__item-title">Електронна пошта</h3>
+                  <p className="contact__item-text">office@biosafe.ltd</p>
+                </div>
+              </div>
+
+              {/* Години роботи */}
+              <div className="contact__item">
+                <div className="contact__icon contact__icon--clock">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" fill="currentColor"/>
+                    <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div className="contact__details">
+                  <h3 className="contact__item-title">Години роботи</h3>
+                  <p className="contact__item-text">Понеділок - П'ятниця: 8:00 - 18:00</p>
+                  <p className="contact__item-text">Субота: 9:00 - 13:00</p>
+                  <p className="contact__item-text">Неділя: Вихідний</p>
+                  <p className="contact__item-text contact__item-text--accent">Екстрена підтримка: 24/7</p>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Карта */}
+            <div className="contact__map">
+              <div className="contact__map-placeholder">
+                <div className="contact__map-icon">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <h3 className="contact__map-title">Інтерактивна карта</h3>
+                <p className="contact__map-text">Інтеграція карти буде реалізована тут</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
