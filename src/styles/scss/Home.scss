@@ -540,7 +540,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 2rem 1rem;
+        padding: 1.5rem 0.8rem;
         background: none;
 
         &.show {
@@ -548,11 +548,11 @@
         }
 
         .intro-text {
-          margin-bottom: 3rem;
+          margin-bottom: 2.5rem;
 
           p {
-            font-size: clamp(1.1rem, 3.8vw, 1.5rem);
-            padding: 1.5rem 1.5rem;
+            font-size: clamp(1rem, 3.5vw, 1.3rem);
+            padding: 1.2rem 1.2rem;
             max-width: 100%;
             background: rgba(255, 255, 255, 0.95);
             color: v.$text-primary;
@@ -560,25 +560,34 @@
             border: 1px solid rgba(43, 93, 107, 0.2);
             backdrop-filter: blur(10px);
             box-shadow: 0 8px 32px rgba(43, 93, 107, 0.2);
-            border-radius: 16px;
+            border-radius: 12px;
+            line-height: 1.4;
           }
         }
 
         .services-links {
           grid-template-columns: 1fr 1fr;
-          gap: 1.5rem;
+          gap: 1rem;
           max-width: 100%;
           width: 100%;
+          padding: 0 0.5rem;
+          align-items: stretch;
         }
 
         .service-link {
-          height: 180px;
-          padding: 1.5rem 1rem;
+          height: auto;
+          min-height: 200px;
+          max-height: none;
+          padding: 1.2rem 0.8rem;
           background: rgba(255, 255, 255, 0.9);
           border: 1px solid rgba(43, 93, 107, 0.2);
           backdrop-filter: blur(10px);
           box-shadow: 0 8px 24px rgba(43, 93, 107, 0.15);
-          border-radius: 16px;
+          border-radius: 12px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
 
           &:hover {
             background: rgba(255, 255, 255, 0.95);
@@ -587,24 +596,38 @@
             transform: translateY(-2px);
           }
 
-          .service-icon svg {
-            width: 32px;
-            height: 32px;
-            color: v.$primary-color;
+          .service-icon {
+            margin-bottom: 0.8rem;
+            flex-shrink: 0;
+
+            svg {
+              width: 28px;
+              height: 28px;
+              color: v.$primary-color;
+            }
           }
 
           h3 {
-            font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+            font-size: clamp(0.8rem, 3.2vw, 1rem);
             color: v.$text-primary;
             text-shadow: none;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
+            line-height: 1.2;
+            text-align: center;
+            flex-shrink: 0;
           }
 
           p {
             font-size: clamp(0.75rem, 2.8vw, 0.85rem);
             color: v.$text-secondary;
             text-shadow: none;
-            line-height: 1.4;
+            line-height: 1.3;
+            margin: 0;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
         }
       }
@@ -629,18 +652,37 @@
         .services-links {
           grid-template-columns: 1fr 1fr;
           gap: 2rem;
+          align-items: stretch;
         }
 
         .service-link {
-          height: 240px;
+          height: auto;
+          min-height: 220px;
+          max-height: none;
           padding: 2rem 1.5rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+
+          .service-icon {
+            flex-shrink: 0;
+          }
 
           h3 {
             font-size: clamp(1rem, 2.5vw, 1.2rem);
+            text-align: center;
+            flex-shrink: 0;
           }
 
           p {
             font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+            text-align: center;
+            line-height: 1.4;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
         }
       }
@@ -668,11 +710,35 @@
         .services-links {
           gap: 2.5rem;
           max-width: 900px;
+          align-items: stretch;
         }
 
         .service-link {
-          height: 260px;
+          height: auto;
+          min-height: 240px;
+          max-height: none;
           padding: 2.5rem 2rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+
+          .service-icon {
+            flex-shrink: 0;
+          }
+
+          h3 {
+            text-align: center;
+            flex-shrink: 0;
+          }
+
+          p {
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
         }
       }
     }
@@ -709,6 +775,71 @@
       width: 300px;
       min-width: 200px;
       max-width: calc(100% - 2rem);
+    }
+  }
+}
+
+// Очень маленькие экраны (320px - 480px)
+@media (max-width: 480px) {
+  .home {
+    .lab-animation-container {
+      .overlay-text {
+        padding: 1rem 0.5rem;
+
+        .intro-text {
+          margin-bottom: 2rem;
+
+          p {
+            font-size: clamp(0.9rem, 4vw, 1.1rem);
+            padding: 1rem;
+            border-radius: 10px;
+          }
+        }
+
+        .services-links {
+          gap: 0.8rem;
+          padding: 0 0.2rem;
+          align-items: stretch;
+        }
+
+        .service-link {
+          min-height: 180px;
+          max-height: none;
+          padding: 1rem 0.6rem;
+          border-radius: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+
+          .service-icon {
+            margin-bottom: 0.6rem;
+            flex-shrink: 0;
+
+            svg {
+              width: 24px;
+              height: 24px;
+            }
+          }
+
+          h3 {
+            font-size: clamp(0.75rem, 3.8vw, 0.9rem);
+            margin-bottom: 0.5rem;
+            text-align: center;
+            flex-shrink: 0;
+          }
+
+          p {
+            font-size: clamp(0.7rem, 3.2vw, 0.8rem);
+            text-align: center;
+            line-height: 1.3;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
     }
   }
 }
