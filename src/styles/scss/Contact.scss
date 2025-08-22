@@ -129,13 +129,24 @@
     }
   }
 
+  &__link {
+    color: inherit;
+    text-decoration: none;
+    transition: $transition-normal;
+    border-bottom: 1px solid transparent;
+
+    &:hover {
+      color: $primary-color;
+      border-bottom-color: $primary-color;
+    }
+  }
+
+  // Стилі для карти
   &__map {
     background: $white;
     border-radius: $border-radius-lg;
     box-shadow: $shadow-sm;
     overflow: hidden;
-    min-height: 400px;
-    position: relative;
     transition: $transition-normal;
 
     &:hover {
@@ -143,15 +154,87 @@
     }
   }
 
-  &__map-placeholder {
-    height: 100%;
+  &__map-header {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-6;
+    border-bottom: 1px solid $light-gray;
+    background: linear-gradient(135deg, $bg-light 0%, $white 100%);
+  }
+
+  &__map-title {
+    font-family: $font-family-display;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $primary-color;
+    margin: 0;
+  }
+
+  &__map-button {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-3 $spacing-4;
+    background: linear-gradient(135deg, $primary-color, $primary-light);
+    color: $white;
+    border: none;
+    border-radius: $border-radius-md;
+    font-family: $font-family-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: $transition-normal;
+    text-decoration: none;
+
+    &:hover {
+      background: linear-gradient(135deg, $primary-light, $primary-color);
+      transform: translateY(-1px);
+      box-shadow: $shadow-sm;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  &__map-container {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      transition: $transition-normal;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+
+  &__map-fallback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
     align-items: center;
     justify-content: center;
-    padding: $spacing-8;
-    text-align: center;
     background: linear-gradient(135deg, $bg-light 0%, $medium-gray 100%);
+    z-index: 1;
+  }
+
+  &__map-fallback-content {
+    text-align: center;
+    padding: $spacing-8;
   }
 
   &__map-icon {
@@ -163,7 +246,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: $spacing-6;
+    margin: 0 auto $spacing-6;
     
     svg {
       width: 48px;
@@ -171,19 +254,84 @@
     }
   }
 
-  &__map-title {
+  &__map-fallback-content h4 {
     font-family: $font-family-display;
-    font-size: $font-size-xl;
+    font-size: $font-size-lg;
     font-weight: $font-weight-semibold;
     color: $primary-color;
     margin-bottom: $spacing-3;
   }
 
-  &__map-text {
+  &__map-fallback-content p {
     font-family: $font-family-primary;
     font-size: $font-size-base;
     color: $text-muted;
+    margin-bottom: $spacing-6;
     line-height: $line-height-relaxed;
+  }
+
+  &__map-fallback-button {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-3 $spacing-6;
+    background: linear-gradient(135deg, $accent-color, $accent-light);
+    color: $white;
+    border: none;
+    border-radius: $border-radius-md;
+    font-family: $font-family-primary;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: $transition-normal;
+
+    &:hover {
+      background: linear-gradient(135deg, $accent-light, $accent-color);
+      transform: translateY(-1px);
+      box-shadow: $shadow-sm;
+    }
+  }
+
+  &__map-actions {
+    display: flex;
+    gap: $spacing-3;
+    padding: $spacing-4;
+    background: $bg-light;
+    border-top: 1px solid $light-gray;
+  }
+
+  &__map-action {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-2;
+    padding: $spacing-3;
+    background: $white;
+    color: $text-secondary;
+    border: 1px solid $light-gray;
+    border-radius: $border-radius-md;
+    font-family: $font-family-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: $transition-normal;
+
+    &:hover {
+      background: $primary-color;
+      color: $white;
+      border-color: $primary-color;
+      transform: translateY(-1px);
+      box-shadow: $shadow-sm;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
   }
 
   // Анімації
@@ -240,12 +388,32 @@
       font-size: $font-size-sm;
     }
 
-    &__map {
-      min-height: 300px;
+    &__map-header {
+      flex-direction: column;
+      gap: $spacing-3;
+      align-items: stretch;
     }
 
-    &__map-placeholder {
-      padding: $spacing-6;
+    &__map-title {
+      text-align: center;
+      margin-bottom: $spacing-2;
+    }
+
+    &__map-button {
+      justify-content: center;
+    }
+
+    &__map-container {
+      height: 300px;
+    }
+
+    &__map-actions {
+      flex-direction: column;
+      gap: $spacing-2;
+    }
+
+    &__map-action {
+      justify-content: center;
     }
 
     &__map-icon {
@@ -256,14 +424,6 @@
         width: 32px;
         height: 32px;
       }
-    }
-
-    &__map-title {
-      font-size: $font-size-lg;
-    }
-
-    &__map-text {
-      font-size: $font-size-sm;
     }
   }
 
@@ -286,5 +446,19 @@
     &--clock {
       background: linear-gradient(135deg, #6cc966, $medical-green);
     }
+  }
+
+  // Стилі для focus accessibility
+  &__map-button:focus,
+  &__map-action:focus,
+  &__map-fallback-button:focus {
+    outline: 2px solid $accent-color;
+    outline-offset: 2px;
+  }
+
+  &__link:focus {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+    border-radius: $border-radius-sm;
   }
 }
