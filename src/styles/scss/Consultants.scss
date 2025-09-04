@@ -2,18 +2,37 @@
 
 .consultants {
   min-height: 100vh;
-  background: v.$bg-light;
+  background: v.$bg-gradient;
   padding: v.$spacing-20 0;
+  position: relative;
 
   &__container {
     max-width: v.$container-max-width;
     margin: 0 auto;
     padding: 0 v.$container-padding;
+    position: relative;
+    z-index: 1;
   }
 
   &__header {
     text-align: center;
     margin-bottom: v.$spacing-16;
+    position: relative;
+
+    // Декоративная линия под заголовком
+    &::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(
+        90deg,
+        v.$accent-color 0%,
+        v.$medical-green 100%
+      );
+      margin: v.$spacing-6 auto 0;
+      border-radius: v.$border-radius-full;
+    }
 
     h1 {
       font-size: v.$font-size-4xl;
@@ -21,6 +40,10 @@
       color: v.$primary-color;
       margin-bottom: v.$spacing-6;
       font-family: v.$font-family-display;
+      position: relative;
+
+      // Добавляем тонкую тень для глубины
+      text-shadow: 0 2px 4px rgba(v.$primary-color, 0.1);
 
       @media (max-width: v.$breakpoint-md) {
         font-size: v.$font-size-3xl;
@@ -32,8 +55,9 @@
     font-size: v.$font-size-lg;
     color: v.$text-secondary;
     line-height: v.$line-height-relaxed;
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
+    font-weight: v.$font-weight-normal;
 
     @media (max-width: v.$breakpoint-md) {
       font-size: v.$font-size-base;
@@ -43,7 +67,7 @@
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: v.$spacing-8;
     margin-top: v.$spacing-12;
 
@@ -62,28 +86,79 @@
   box-shadow: v.$shadow-md;
   cursor: pointer;
   transition: all v.$transition-normal;
-  border: 2px solid transparent;
+  border: 1px solid v.$medium-gray;
+  position: relative;
+
+  // Добавляем градиентную рамку при ховере
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: v.$border-radius-xl;
+    padding: 2px;
+    background: linear-gradient(
+      135deg,
+      v.$accent-color,
+      v.$primary-color,
+      v.$medical-blue
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: subtract;
+    opacity: 0;
+    transition: opacity v.$transition-normal;
+    z-index: -1;
+  }
 
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: v.$shadow-xl;
-    border-color: v.$primary-color;
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(v.$primary-color, 0.15);
+    border-color: transparent;
+
+    &::before {
+      opacity: 1;
+    }
 
     .consultant-card__overlay {
       opacity: 1;
+    }
+
+    .consultant-card__info {
+      background: linear-gradient(
+        135deg,
+        v.$biosafe-light 0%,
+        v.$bg-secondary 100%
+      );
     }
   }
 
   &__photo {
     position: relative;
-    height: 280px;
+    height: 300px;
     overflow: hidden;
+    background: linear-gradient(135deg, v.$light-gray 0%, v.$medium-gray 100%);
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform v.$transition-normal;
+      transition: transform v.$transition-slow;
+      filter: grayscale(20%) contrast(1.1);
+    }
+
+    // Декоративный градиент поверх изображения
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(transparent, rgba(v.$primary-dark, 0.3));
+      opacity: 0;
+      transition: opacity v.$transition-normal;
     }
   }
 
@@ -93,29 +168,72 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(v.$primary-color, 0.8);
+    background: linear-gradient(
+      135deg,
+      rgba(v.$primary-color, 0.9) 0%,
+      rgba(v.$biosafe-dark, 0.8) 100%
+    );
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity v.$transition-normal;
+    transition: all v.$transition-normal;
+    backdrop-filter: blur(2px);
 
     span {
       color: v.$white;
       font-size: v.$font-size-lg;
       font-weight: v.$font-weight-semibold;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      padding: v.$spacing-3 v.$spacing-6;
+      border: 2px solid v.$white;
+      border-radius: v.$border-radius-full;
+      background: rgba(v.$white, 0.1);
+      backdrop-filter: blur(10px);
+      transition: all v.$transition-fast;
+
+      &:hover {
+        background: rgba(v.$white, 0.2);
+        transform: scale(1.05);
+      }
     }
   }
 
-  &:hover img {
-    transform: scale(1.05);
+  &:hover {
+    img {
+      transform: scale(1.08);
+      filter: grayscale(0%) contrast(1.2);
+    }
+
+    .consultant-card__photo::after {
+      opacity: 1;
+    }
   }
 
   &__info {
     padding: v.$spacing-6;
     text-align: center;
+    transition: all v.$transition-normal;
+    background: v.$white;
+    position: relative;
+
+    // Декоративная полоска сверху
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(
+        90deg,
+        v.$accent-color 0%,
+        v.$medical-green 100%
+      );
+      border-radius: 0 0 v.$border-radius-sm v.$border-radius-sm;
+    }
   }
 
   &__name {
@@ -124,45 +242,81 @@
     color: v.$text-primary;
     margin-bottom: v.$spacing-3;
     line-height: v.$line-height-tight;
+    transition: color v.$transition-fast;
   }
 
   &__position {
     font-size: v.$font-size-base;
-    color: v.$text-secondary;
+    color: v.$medical-blue;
     line-height: v.$line-height-normal;
+    font-weight: v.$font-weight-medium;
+
+    // Добавляем небольшой акцент
+    position: relative;
+    padding-bottom: v.$spacing-2;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 1px;
+      background: v.$accent-color;
+      transition: width v.$transition-normal;
+    }
+  }
+
+  &:hover &__position::after {
+    width: 60px;
   }
 }
 
-// Модальное окно
+// Улучшенные стили модального окна
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(v.$primary-dark, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   padding: v.$spacing-4;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
+  animation: modalOverlayAppear 0.3s ease-out;
+
+  @keyframes modalOverlayAppear {
+    from {
+      opacity: 0;
+      backdrop-filter: blur(0);
+    }
+    to {
+      opacity: 1;
+      backdrop-filter: blur(8px);
+    }
+  }
 }
 
 .modal {
   background: v.$white;
   border-radius: v.$border-radius-xl;
-  max-width: 900px;
+  max-width: 950px;
   width: 100%;
   max-height: 90vh;
-  overflow-y: auto;
+  overflow: hidden;
   position: relative;
-  animation: modalAppear 0.3s ease-out;
+  animation: modalAppear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 25px 50px rgba(v.$primary-dark, 0.3);
+  border: 1px solid v.$medium-gray;
 
   @keyframes modalAppear {
     from {
       opacity: 0;
-      transform: scale(0.9) translateY(20px);
+      transform: scale(0.8) translateY(40px);
     }
     to {
       opacity: 1;
@@ -172,12 +326,12 @@
 
   &__close {
     position: absolute;
-    top: v.$spacing-4;
-    right: v.$spacing-4;
-    background: rgba(v.$dark-gray, 0.1);
+    top: v.$spacing-5;
+    right: v.$spacing-5;
+    background: rgba(v.$white, 0.9);
     border: none;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: v.$border-radius-full;
     display: flex;
     align-items: center;
@@ -185,47 +339,132 @@
     cursor: pointer;
     transition: all v.$transition-fast;
     z-index: 10;
+    box-shadow: v.$shadow-md;
+    backdrop-filter: blur(10px);
 
     &:hover {
-      background: rgba(v.$dark-gray, 0.2);
+      background: v.$white;
       transform: scale(1.1);
+      box-shadow: v.$shadow-lg;
     }
 
     svg {
       color: v.$dark-gray;
+      transition: color v.$transition-fast;
+    }
+
+    &:hover svg {
+      color: v.$primary-color;
     }
   }
 
   &__content {
     padding: v.$spacing-8;
+    overflow-y: auto;
+    max-height: 90vh;
 
     @media (max-width: v.$breakpoint-md) {
       padding: v.$spacing-6 v.$spacing-4;
+    }
+
+    /* Улучшенная стилизация скроллбара */
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: v.$light-gray;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient(
+        180deg,
+        v.$primary-color 0%,
+        v.$medical-blue 100%
+      );
+      border-radius: 4px;
+
+      &:hover {
+        background: linear-gradient(
+          180deg,
+          v.$primary-dark 0%,
+          v.$primary-color 100%
+        );
+      }
     }
   }
 
   &__header {
     display: flex;
     align-items: flex-start;
-    gap: v.$spacing-6;
-    margin-bottom: v.$spacing-8;
+    gap: v.$spacing-8;
+    margin-bottom: v.$spacing-10;
+    padding: v.$spacing-6;
+    background: linear-gradient(
+      135deg,
+      v.$biosafe-light 0%,
+      v.$bg-secondary 100%
+    );
+    border-radius: v.$border-radius-lg;
+    position: relative;
+
+    // Декоративные элементы
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(
+        90deg,
+        v.$primary-color 0%,
+        v.$accent-color 50%,
+        v.$medical-blue 100%
+      );
+      border-radius: v.$border-radius-lg v.$border-radius-lg 0 0;
+    }
 
     @media (max-width: v.$breakpoint-sm) {
       flex-direction: column;
       text-align: center;
+      gap: v.$spacing-6;
     }
   }
 
   &__photo {
-    width: 140px;
-    height: 140px;
+    width: 160px;
+    height: 160px;
     border-radius: v.$border-radius-full;
     overflow: hidden;
     flex-shrink: 0;
-    box-shadow: v.$shadow-lg;
+    box-shadow: 0 8px 32px rgba(v.$primary-color, 0.2);
+    border: 4px solid v.$white;
+    position: relative;
+
+    // Декоративное кольцо
+    &::after {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border-radius: v.$border-radius-full;
+      padding: 2px;
+      background: linear-gradient(
+        135deg,
+        v.$accent-color,
+        v.$primary-color,
+        v.$medical-blue
+      );
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: subtract;
+      z-index: -1;
+    }
 
     @media (max-width: v.$breakpoint-sm) {
       margin: 0 auto;
+      width: 140px;
+      height: 140px;
     }
 
     img {
@@ -237,100 +476,130 @@
 
   &__title {
     flex: 1;
-    padding-top: v.$spacing-2;
+    padding-top: v.$spacing-3;
 
     h2 {
-      font-size: v.$font-size-2xl;
+      font-size: v.$font-size-3xl;
       font-weight: v.$font-weight-bold;
       color: v.$text-primary;
-      margin-bottom: v.$spacing-2;
+      margin-bottom: v.$spacing-4;
       line-height: v.$line-height-tight;
 
       @media (max-width: v.$breakpoint-md) {
-        font-size: v.$font-size-xl;
+        font-size: v.$font-size-2xl;
       }
     }
   }
 
   &__position {
-    font-size: v.$font-size-lg;
+    font-size: v.$font-size-xl;
     color: v.$medical-blue;
     font-weight: v.$font-weight-medium;
     line-height: v.$line-height-normal;
+    padding: v.$spacing-2 v.$spacing-4;
+    background: rgba(v.$medical-blue, 0.1);
+    border-radius: v.$border-radius-full;
+    display: inline-block;
+    border: 1px solid rgba(v.$medical-blue, 0.2);
 
     @media (max-width: v.$breakpoint-md) {
-      font-size: v.$font-size-base;
+      font-size: v.$font-size-lg;
     }
   }
 
   &__body {
-    max-height: 60vh;
-    overflow-y: auto;
     padding-right: v.$spacing-2;
-
-    /* Стилизация скроллбара */
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: v.$light-gray;
-      border-radius: 3px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: v.$primary-color;
-      border-radius: 3px;
-
-      &:hover {
-        background: v.$primary-dark;
-      }
-    }
   }
 
   &__section {
-    margin-bottom: v.$spacing-8;
+    margin-bottom: v.$spacing-10;
+    position: relative;
 
     &:last-child {
       margin-bottom: 0;
     }
 
     h3 {
-      font-size: v.$font-size-xl;
-      font-weight: v.$font-weight-semibold;
+      font-size: v.$font-size-2xl;
+      font-weight: v.$font-weight-bold;
       color: v.$primary-color;
-      margin-bottom: v.$spacing-4;
-      padding-bottom: v.$spacing-2;
-      border-bottom: 2px solid v.$accent-color;
-      display: inline-block;
+      margin-bottom: v.$spacing-6;
+      padding: v.$spacing-4 v.$spacing-6;
+      background: linear-gradient(
+        135deg,
+        v.$biosafe-light 0%,
+        rgba(v.$accent-color, 0.1) 100%
+      );
+      border-radius: v.$border-radius-lg;
+      border-left: 5px solid v.$accent-color;
+      position: relative;
+
+      // Иконка рядом с заголовком секции
+      &::before {
+        content: "";
+        position: absolute;
+        right: v.$spacing-4;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 8px;
+        height: 8px;
+        background: v.$accent-color;
+        border-radius: v.$border-radius-full;
+      }
     }
   }
 }
 
-// Стили для секций образования
+// Улучшенные стили для секций образования и опыта
 .education-item,
 .experience-item {
-  background: v.$bg-secondary;
-  padding: v.$spacing-5;
-  border-radius: v.$border-radius-md;
-  margin-bottom: v.$spacing-4;
-  border-left: 4px solid v.$accent-color;
+  background: v.$white;
+  padding: v.$spacing-6;
+  border-radius: v.$border-radius-lg;
+  margin-bottom: v.$spacing-6;
+  border: 1px solid v.$medium-gray;
+  border-left: 5px solid v.$accent-color;
+  box-shadow: v.$shadow-sm;
+  transition: all v.$transition-normal;
+  position: relative;
+  overflow: hidden;
+
+  // Декоративный градиент
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(
+      circle,
+      rgba(v.$accent-color, 0.1) 0%,
+      transparent 70%
+    );
+    border-radius: v.$border-radius-full;
+    transform: translate(50%, -50%);
+  }
 
   &:last-child {
     margin-bottom: 0;
   }
 
   h4 {
-    font-size: v.$font-size-lg;
+    font-size: v.$font-size-xl;
     font-weight: v.$font-weight-semibold;
     color: v.$text-primary;
-    margin-bottom: v.$spacing-3;
+    margin-bottom: v.$spacing-4;
+    position: relative;
+    z-index: 1;
   }
 
   p {
-    margin-bottom: v.$spacing-2;
+    margin-bottom: v.$spacing-3;
     color: v.$text-secondary;
-    line-height: v.$line-height-normal;
+    line-height: v.$line-height-relaxed;
+    position: relative;
+    z-index: 1;
 
     &:last-child {
       margin-bottom: 0;
@@ -338,86 +607,27 @@
 
     strong {
       color: v.$text-primary;
-      font-weight: v.$font-weight-medium;
+      font-weight: v.$font-weight-semibold;
     }
   }
 }
 
 .education-programs {
-  margin-top: v.$spacing-3;
+  margin-top: v.$spacing-4;
+  position: relative;
+  z-index: 1;
 
   ul {
-    margin-top: v.$spacing-2;
-    padding-left: v.$spacing-5;
+    margin-top: v.$spacing-3;
+    padding-left: v.$spacing-6;
 
     li {
-      margin-bottom: v.$spacing-1;
-      color: v.$text-secondary;
-      line-height: v.$line-height-normal;
-    }
-  }
-}
-
-// Стили для компетенций
-.competencies-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: v.$spacing-3;
-  padding: 0;
-
-  @media (max-width: v.$breakpoint-sm) {
-    grid-template-columns: 1fr;
-  }
-
-  li {
-    background: v.$bg-secondary;
-    padding: v.$spacing-4;
-    border-radius: v.$border-radius-md;
-    list-style: none;
-    border-left: 3px solid v.$medical-green;
-    font-weight: v.$font-weight-medium;
-    color: v.$text-primary;
-    transition: all v.$transition-fast;
-
-    &:hover {
-      background: v.$accent-light;
-      transform: translateX(4px);
-    }
-  }
-}
-
-// Стили для профессионального развития
-.development-year {
-  background: linear-gradient(135deg, v.$bg-secondary 0%, v.$light-gray 100%);
-  padding: v.$spacing-5;
-  border-radius: v.$border-radius-md;
-  margin-bottom: v.$spacing-5;
-  border: 1px solid v.$medium-gray;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  h4 {
-    font-size: v.$font-size-lg;
-    font-weight: v.$font-weight-semibold;
-    color: v.$primary-color;
-    margin-bottom: v.$spacing-4;
-    padding-bottom: v.$spacing-2;
-    border-bottom: 1px solid v.$primary-color;
-    display: inline-block;
-  }
-
-  ul {
-    padding-left: v.$spacing-5;
-
-    li {
-      margin-bottom: v.$spacing-3;
+      margin-bottom: v.$spacing-2;
       color: v.$text-secondary;
       line-height: v.$line-height-relaxed;
       position: relative;
 
-      &:before {
+      &::before {
         content: "";
         position: absolute;
         left: -20px;
@@ -425,7 +635,135 @@
         width: 6px;
         height: 6px;
         background: v.$accent-color;
-        border-radius: 50%;
+        border-radius: v.$border-radius-full;
+      }
+    }
+  }
+}
+
+// Улучшенные стили для компетенций
+.competencies-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: v.$spacing-4;
+  padding: 0;
+
+  @media (max-width: v.$breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+
+  li {
+    background: linear-gradient(135deg, v.$white 0%, v.$bg-secondary 100%);
+    padding: v.$spacing-5;
+    border-radius: v.$border-radius-lg;
+    list-style: none;
+    border: 1px solid v.$medium-gray;
+    border-left: 4px solid v.$medical-green;
+    font-weight: v.$font-weight-medium;
+    color: v.$text-primary;
+    transition: all v.$transition-normal;
+    position: relative;
+    overflow: hidden;
+
+    // Декоративные элементы
+    &::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(
+        circle,
+        rgba(v.$medical-green, 0.1) 0%,
+        transparent 70%
+      );
+      border-radius: v.$border-radius-full;
+    }
+
+    &:hover {
+      background: linear-gradient(
+        135deg,
+        v.$accent-light 0%,
+        v.$bg-secondary 100%
+      );
+      transform: translateY(-2px);
+      box-shadow: v.$shadow-md;
+      border-left-color: v.$accent-color;
+    }
+  }
+}
+
+// Улучшенные стили для профессионального развития
+.development-year {
+  background: linear-gradient(135deg, v.$white 0%, v.$bg-secondary 100%);
+  padding: v.$spacing-6;
+  border-radius: v.$border-radius-lg;
+  margin-bottom: v.$spacing-6;
+  border: 1px solid v.$medium-gray;
+  box-shadow: v.$shadow-sm;
+  position: relative;
+  overflow: hidden;
+
+  // Декоративный элемент
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(
+      180deg,
+      v.$primary-color 0%,
+      v.$accent-color 100%
+    );
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  h4 {
+    font-size: v.$font-size-xl;
+    font-weight: v.$font-weight-bold;
+    color: v.$primary-color;
+    margin-bottom: v.$spacing-5;
+    padding: v.$spacing-3 v.$spacing-4;
+    background: linear-gradient(
+      135deg,
+      rgba(v.$primary-color, 0.1) 0%,
+      rgba(v.$accent-color, 0.05) 100%
+    );
+    border-radius: v.$border-radius-md;
+    border: 1px solid rgba(v.$primary-color, 0.2);
+    display: inline-block;
+  }
+
+  ul {
+    padding-left: v.$spacing-6;
+
+    li {
+      margin-bottom: v.$spacing-4;
+      color: v.$text-secondary;
+      line-height: v.$line-height-relaxed;
+      position: relative;
+      padding-left: v.$spacing-4;
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: -20px;
+        top: 12px;
+        width: 8px;
+        height: 8px;
+        background: linear-gradient(
+          135deg,
+          v.$accent-color 0%,
+          v.$medical-green 100%
+        );
+        border-radius: v.$border-radius-full;
+        box-shadow: 0 0 0 3px rgba(v.$accent-color, 0.2);
       }
 
       &:last-child {
@@ -435,10 +773,39 @@
   }
 }
 
-// Адаптивность для мобильных устройств
+// Улучшенная адаптивность
+@media (max-width: v.$breakpoint-lg) {
+  .modal {
+    max-width: 90vw;
+    margin: v.$spacing-3;
+
+    &__content {
+      padding: v.$spacing-6;
+    }
+
+    &__header {
+      gap: v.$spacing-6;
+      padding: v.$spacing-5;
+    }
+
+    &__photo {
+      width: 140px;
+      height: 140px;
+    }
+
+    &__title h2 {
+      font-size: v.$font-size-2xl;
+    }
+
+    &__position {
+      font-size: v.$font-size-lg;
+    }
+  }
+}
+
 @media (max-width: v.$breakpoint-md) {
   .consultants {
-    padding: v.$spacing-12 0;
+    padding: v.$spacing-16 0;
 
     &__container {
       padding: 0 v.$spacing-4;
@@ -447,51 +814,388 @@
     &__header {
       margin-bottom: v.$spacing-12;
     }
-  }
 
-  .modal {
-    margin: v.$spacing-4;
-    max-height: calc(100vh - #{v.$spacing-8});
-
-    &__content {
-      padding: v.$spacing-6 v.$spacing-4;
-    }
-
-    &__header {
-      margin-bottom: v.$spacing-6;
-    }
-
-    &__body {
-      max-height: calc(100vh - 300px);
+    &__grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
   }
 
   .consultant-card {
     &__photo {
-      height: 240px;
+      height: 260px;
+    }
+  }
+
+  .modal {
+    margin: v.$spacing-3;
+    max-height: calc(100vh - #{v.$spacing-6});
+    max-width: calc(100vw - #{v.$spacing-6});
+
+    &__close {
+      width: 40px;
+      height: 40px;
+      top: v.$spacing-4;
+      right: v.$spacing-4;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    &__content {
+      padding: v.$spacing-5 v.$spacing-4;
+    }
+
+    &__header {
+      margin-bottom: v.$spacing-6;
+      padding: v.$spacing-4;
+      gap: v.$spacing-5;
+    }
+
+    &__photo {
+      width: 120px;
+      height: 120px;
+    }
+
+    &__title h2 {
+      font-size: v.$font-size-xl;
+      margin-bottom: v.$spacing-2;
+    }
+
+    &__position {
+      font-size: v.$font-size-base;
+      padding: v.$spacing-2 v.$spacing-3;
+    }
+
+    &__section {
+      margin-bottom: v.$spacing-6;
+
+      h3 {
+        font-size: v.$font-size-lg;
+        padding: v.$spacing-3 v.$spacing-4;
+        margin-bottom: v.$spacing-4;
+      }
+    }
+  }
+
+  .education-item,
+  .experience-item {
+    padding: v.$spacing-4;
+    margin-bottom: v.$spacing-4;
+
+    h4 {
+      font-size: v.$font-size-lg;
+      margin-bottom: v.$spacing-3;
+    }
+
+    p {
+      font-size: v.$font-size-sm;
+      margin-bottom: v.$spacing-2;
+    }
+  }
+
+  .development-year {
+    padding: v.$spacing-4;
+    margin-bottom: v.$spacing-4;
+
+    h4 {
+      font-size: v.$font-size-lg;
+      margin-bottom: v.$spacing-3;
+      padding: v.$spacing-2 v.$spacing-3;
+    }
+
+    ul li {
+      font-size: v.$font-size-sm;
+      margin-bottom: v.$spacing-2;
+    }
+  }
+
+  .competencies-list {
+    gap: v.$spacing-3;
+
+    li {
+      padding: v.$spacing-3;
+      font-size: v.$font-size-sm;
     }
   }
 }
 
 @media (max-width: v.$breakpoint-sm) {
   .consultants {
-    padding: v.$spacing-8 0;
+    padding: v.$spacing-12 0;
 
     &__header h1 {
       font-size: v.$font-size-2xl;
     }
+
+    &__grid {
+      grid-template-columns: 1fr;
+    }
   }
 
-  .consultant-card__photo {
-    height: 200px;
+  .consultant-card {
+    &__photo {
+      height: 220px;
+    }
+  }
+
+  .modal {
+    margin: v.$spacing-2;
+    max-height: calc(100vh - #{v.$spacing-4});
+    max-width: calc(100vw - #{v.$spacing-4});
+    border-radius: v.$border-radius-lg;
+
+    &__close {
+      width: 36px;
+      height: 36px;
+      top: v.$spacing-3;
+      right: v.$spacing-3;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    &__content {
+      padding: v.$spacing-4 v.$spacing-3;
+    }
+
+    &__header {
+      flex-direction: column;
+      text-align: center;
+      gap: v.$spacing-4;
+      margin-bottom: v.$spacing-5;
+      padding: v.$spacing-3;
+      align-items: center;
+    }
+
+    &__photo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+    }
+
+    &__title {
+      padding-top: 0;
+
+      h2 {
+        font-size: v.$font-size-lg;
+        margin-bottom: v.$spacing-2;
+      }
+    }
+
+    &__position {
+      font-size: v.$font-size-sm;
+      padding: v.$spacing-1 v.$spacing-3;
+    }
+
+    &__section {
+      margin-bottom: v.$spacing-5;
+
+      h3 {
+        font-size: v.$font-size-base;
+        padding: v.$spacing-2 v.$spacing-3;
+        margin-bottom: v.$spacing-3;
+      }
+    }
   }
 
   .education-item,
   .experience-item {
-    padding: v.$spacing-4;
+    padding: v.$spacing-3;
+    margin-bottom: v.$spacing-3;
+
+    h4 {
+      font-size: v.$font-size-base;
+      margin-bottom: v.$spacing-2;
+    }
+
+    p {
+      font-size: v.$font-size-xs;
+      margin-bottom: v.$spacing-2;
+      line-height: v.$line-height-normal;
+    }
+  }
+
+  .education-programs {
+    margin-top: v.$spacing-2;
+
+    ul {
+      margin-top: v.$spacing-2;
+      padding-left: v.$spacing-4;
+
+      li {
+        font-size: v.$font-size-xs;
+        margin-bottom: v.$spacing-1;
+      }
+    }
   }
 
   .development-year {
-    padding: v.$spacing-4;
+    padding: v.$spacing-3;
+    margin-bottom: v.$spacing-3;
+
+    h4 {
+      font-size: v.$font-size-base;
+      margin-bottom: v.$spacing-2;
+      padding: v.$spacing-2;
+    }
+
+    ul {
+      padding-left: v.$spacing-4;
+
+      li {
+        font-size: v.$font-size-xs;
+        margin-bottom: v.$spacing-2;
+        padding-left: v.$spacing-2;
+        line-height: v.$line-height-normal;
+      }
+    }
+  }
+
+  .competencies-list {
+    grid-template-columns: 1fr;
+    gap: v.$spacing-2;
+
+    li {
+      padding: v.$spacing-3;
+      font-size: v.$font-size-xs;
+      border-left-width: 3px;
+    }
+  }
+}
+
+// Очень маленькие экраны (меньше 480px)
+@media (max-width: 480px) {
+  .modal {
+    margin: v.$spacing-1;
+    max-height: calc(100vh - #{v.$spacing-2});
+    max-width: calc(100vw - #{v.$spacing-2});
+
+    &__close {
+      width: 32px;
+      height: 32px;
+      top: v.$spacing-2;
+      right: v.$spacing-2;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    &__content {
+      padding: v.$spacing-3 v.$spacing-2;
+    }
+
+    &__header {
+      padding: v.$spacing-2;
+      margin-bottom: v.$spacing-4;
+    }
+
+    &__photo {
+      width: 80px;
+      height: 80px;
+    }
+
+    &__title h2 {
+      font-size: v.$font-size-base;
+    }
+
+    &__position {
+      font-size: v.$font-size-xs;
+      padding: v.$spacing-1 v.$spacing-2;
+    }
+
+    &__section {
+      margin-bottom: v.$spacing-4;
+
+      h3 {
+        font-size: v.$font-size-sm;
+        padding: v.$spacing-2;
+        margin-bottom: v.$spacing-2;
+      }
+    }
+  }
+
+  .education-item,
+  .experience-item {
+    padding: v.$spacing-2;
+    margin-bottom: v.$spacing-2;
+
+    h4 {
+      font-size: v.$font-size-sm;
+      margin-bottom: v.$spacing-1;
+    }
+
+    p {
+      font-size: 11px;
+      margin-bottom: v.$spacing-1;
+    }
+  }
+
+  .development-year {
+    padding: v.$spacing-2;
+    margin-bottom: v.$spacing-2;
+
+    h4 {
+      font-size: v.$font-size-sm;
+      margin-bottom: v.$spacing-1;
+      padding: v.$spacing-1;
+    }
+
+    ul {
+      padding-left: v.$spacing-3;
+
+      li {
+        font-size: 11px;
+        margin-bottom: v.$spacing-1;
+        padding-left: v.$spacing-1;
+      }
+    }
+  }
+
+  .competencies-list {
+    gap: v.$spacing-1;
+
+    li {
+      padding: v.$spacing-2;
+      font-size: 11px;
+    }
+  }
+}
+
+// Дополнительные анимации при загрузке
+.consultant-card {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+
+  @for $i from 1 through 12 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.consultants__header {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
