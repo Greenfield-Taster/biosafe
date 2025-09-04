@@ -6,7 +6,7 @@ import "../styles/scss/Diagnostics.scss";
 
 const Diagnostics = () => {
   const handleOrderClick = () => {
-    window.open("https://portal.biosafe.com.ua", "_blank");
+    window.open("https://flow.biosafe-ua.com/", "_blank");
   };
 
   const diagnosticServices = [
