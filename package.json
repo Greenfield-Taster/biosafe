@@ -7,8 +7,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:prod": "vite build --mode production",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
+    "deploy:hosting": "npm run build:prod",
     "lint": "eslint .",
     "preview": "vite preview"
   },
