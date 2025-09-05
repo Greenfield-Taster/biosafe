@@ -437,3 +437,62 @@
     border: 2px solid v.$white;
   }
 }
+
+// Captcha styles
+.captcha-group {
+  .form-label {
+    margin-bottom: v.$spacing-3;
+  }
+}
+
+.captcha-container {
+  display: flex;
+  align-items: flex-start;
+  gap: v.$spacing-3;
+  margin-bottom: v.$spacing-2;
+  align-items: center;
+
+  @media (max-width: v.$breakpoint-sm) {
+    flex-direction: column;
+    gap: v.$spacing-2;
+  }
+}
+
+.captcha-image {
+  flex-shrink: 0;
+  border: 2px solid v.$medium-gray;
+  border-radius: v.$border-radius-md;
+  overflow: hidden;
+  background: v.$white;
+
+  canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: v.$breakpoint-sm) {
+    align-self: stretch;
+  }
+}
+
+.captcha-input {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  font-family: monospace;
+  font-size: v.$font-size-lg;
+  letter-spacing: 2px;
+
+  @media (max-width: v.$breakpoint-sm) {
+    width: 100%;
+  }
+}
+
+.captcha-help {
+  font-size: v.$font-size-sm;
+  color: v.$text-muted;
+  margin: 0;
+  line-height: v.$line-height-normal;
+  font-style: italic;
+}

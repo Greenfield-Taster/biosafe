@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import consultantsData from "../data/consultants.json";
-import consultant1Photo from "../assets/images/default-avatar.jpg";
+import consultant1Photo from "../assets/images/consultant-1.jpg";
 import consultant2Photo from "../assets/images/default-avatar.jpg";
 import consultant3Photo from "../assets/images/default-avatar.jpg";
 import consultant4Photo from "../assets/images/default-avatar.jpg";
